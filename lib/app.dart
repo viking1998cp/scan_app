@@ -1,6 +1,4 @@
 import 'package:base_flutter_framework/utils/constants/common.dart';
-import 'package:dynamic_theme_mode/dynamic_theme_mode.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -15,7 +13,7 @@ import 'utils/constants/colors.dart';
 
 class App extends StatelessWidget {
   AppTranslationsDelegate? _newLocaleDelegate =
-      AppTranslationsDelegate(newLocale: new Locale('en', ''));
+      AppTranslationsDelegate(newLocale: new Locale('en', 'English'));
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

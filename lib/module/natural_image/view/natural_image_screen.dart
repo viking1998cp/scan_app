@@ -1,9 +1,12 @@
 import 'package:base_flutter_framework/components/widget/load_more/load_more_grid_view.dart';
+import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/natural_image/controller/natural_image_controller.dart';
 import 'package:base_flutter_framework/module/natural_image/view/natural_image_detail.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/constants/colors.dart';
+import 'package:base_flutter_framework/utils/shared.dart';
+import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,9 +18,11 @@ class NaturalImageScreen extends GetView<NaturalImageController> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
+        titleSpacing: 8,
         title: Text(
           TransactionKey.loadLanguage(
               Get.context!, TransactionKey.naturalImage),
+          style: TextAppStyle().textToolBar(),
         ),
         actions: [
           Obx(() {
@@ -51,55 +56,58 @@ class NaturalImageScreen extends GetView<NaturalImageController> {
   Widget _buildBody(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6),
-      child: Obx(() {
-        return RefreshIndicator(
-            onRefresh: () async {
-              /// TODO: func refresh data
-            },
-            child: LoadMoreGridView(
-                listFullData: controller.wallpaperIds.value,
-                onLoading: () {
-                  controller.getUrls(
-                    wallpaperName: controller.isActive0!.value == true
-                        ? "plant"
-                        : controller.isActive1!.value == true
-                            ? "dog"
-                            : controller.isActive3!.value == true
-                                ? "bird"
-                                : "mushroom",
-                  );
-                },
-                loading: controller.loading.value,
-                itembuilder: (context, index) {
-                  dynamic id = controller.wallpaperIds.value[index].id;
-                  return Container(
-                    margin: EdgeInsets.only(top: 6, left: 3, right: 3),
-                    child: Card(
-                        elevation: 10,
-                        child: Image.network(
-                          "http://i.7fon.org/300/$id.jpg",
-                          fit: BoxFit.cover,
-                        )),
-                  );
-                },
-                onclickItem: (index) {
-                  if (controller.showAds.value < 4) {
-                    if (controller.showAds.value == 1) {
-                      controller.createInterstitialAd();
+      child: Column(
+        children: [
+          Expanded(
+            child: Obx(() {
+              return LoadMoreGridView(
+                  listFullData: controller.wallpaperIdsLoad.value,
+                  onLoading: () {
+                    controller.loadData();
+                  },
+                  loading: controller.loading.value,
+                  itembuilder: (context, index) {
+                    dynamic id = controller.wallpaperIdsLoad.value[index].id;
+                    return Container(
+                      margin: EdgeInsets.only(top: 6, left: 3, right: 3),
+                      child: Card(
+                          elevation: 10,
+                          child: Image.network(
+                            "http://i.7fon.org/300/$id.jpg",
+                            fit: BoxFit.cover,
+                          )),
+                    );
+                  },
+                  onclickItem: (index) {
+                    if (controller.showAds.value < 4) {
+                      if (controller.showAds.value == 1) {
+                        controller.createInterstitialAd();
+                      }
+                      controller.setShowAds(controller.showAds.value + 1);
+                    } else {
+                      controller.interstitialAd?.show();
+                      controller.setShowAds(1);
                     }
-                    controller.setShowAds(controller.showAds.value + 1);
-                  } else {
-                    controller.interstitialAd?.show();
-                    controller.setShowAds(1);
-                  }
-                  Get.to(ImageDetailScreen(
-                    indexPage: index,
-                  ));
-                },
-                limit: controller.limit.value,
-                childAspectRatio: (Get.width / 2) / 180,
-                crossAxisCount: 2));
-      }),
+                    Get.to(ImageDetailScreen(
+                      indexPage: index,
+                    ));
+                  },
+                  limit: controller.limit.value,
+                  childAspectRatio: (Get.width / 2) / 180,
+                  crossAxisCount: 2);
+            }),
+          ),
+          Shared.getInstance().layout == 2
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    BannerAdsCustom.getInstanceBottomAds(context),
+                  ],
+                )
+              : SizedBox()
+        ],
+      ),
     );
   }
 

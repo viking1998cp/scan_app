@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/core/models/user.dart';
+import 'package:base_flutter_framework/translations/app_translations.dart';
+import 'package:base_flutter_framework/translations/application.dart';
 import 'package:base_flutter_framework/utils/string.dart';
 
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:ui' as ui;
 
 //cache file
 class Shared {
@@ -25,6 +28,7 @@ class Shared {
   //==2 screen
   int? layout;
   String? deviceId;
+  String localeCode = "en";
 
   List<ResultDetect>? collectionCache;
   List<ResultDetect>? favoriteCache;
@@ -91,6 +95,40 @@ class Shared {
     }
 
     return colorPrimary!;
+  }
+
+  Future<bool> saveLocaleCode({required String code}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    localeCode = code;
+    await preferences.setString(StringCommon.codeLanguage, code);
+    return true;
+  }
+
+  Future<bool> saveLocaleCodeAutomatic() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    localeCode = "";
+    Application().supportedLanguagesCodes.forEach((element) {
+      if (element == ui.window.locale.languageCode) {
+        localeCode = element;
+      }
+    });
+    if (localeCode == "") {
+      localeCode = "en";
+    }
+
+    await preferences.setString(StringCommon.codeLanguage, localeCode);
+    return true;
+  }
+
+  Future<String> getLanguage() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    if (preferences.containsKey(StringCommon.codeLanguage)) {
+      localeCode = preferences.getString(StringCommon.codeLanguage) ?? "en";
+    } else {
+      localeCode = "en";
+    }
+
+    return localeCode;
   }
 
   Future<bool> saveLayOutScreen({required int layout}) async {

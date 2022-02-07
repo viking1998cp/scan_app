@@ -1,18 +1,71 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:base_flutter_framework/module/my_id/controller/my_id_controller.dart';
+import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
+import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'package:base_flutter_framework/utils/style/button_style.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'home_screen.chidren.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _appBar(context), body: _buildBody());
+    return WillPopScope(
+        onWillPop: _willPop,
+        child: Scaffold(
+            appBar: widget._appBar(context, () {
+              setState(() {});
+            }),
+            body: Column(
+              children: [
+                _buildBody(),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      BannerAdsCustom.getInstanceBottomAds(context),
+                    ],
+                  ),
+                )
+              ],
+            )));
+  }
+
+  Future<bool> _willPop() async {
+    BuildContext context = Get.context!;
+    SKToast.info(
+        context: context,
+        message:
+            TransactionKey.loadLanguage(context, TransactionKey.titleCloseApp),
+        textCancel:
+            TransactionKey.loadLanguage(context, TransactionKey.selectCancel),
+        okClik: () {
+          exit(0);
+        },
+        textOk: TransactionKey.loadLanguage(context, TransactionKey.selectOk),
+        title:
+            TransactionKey.loadLanguage(context, TransactionKey.notification));
+
+    return false;
   }
 
   Widget _buildBody() {
@@ -37,7 +90,9 @@ class HomeScreen extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () async {
-                await Get.toNamed(Routes.SCAN);
+                if (await Permission.camera.request().isGranted) {
+                  Get.toNamed(Routes.SCAN);
+                }
               },
               style: ButtonAppStyle().buttonWrap(),
               child: Container(
@@ -61,7 +116,10 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 16),
-                        child: Image.asset(ResourceIcon.iconQRCode),
+                        child: Image.asset(
+                          ResourceIcon.iconQRCode,
+                          color: Theme.of(Get.context!).primaryColor,
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +151,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               Expanded(
                 // flex: 1,
-                child: _itemMenu(
+                child: widget._itemMenu(
                     title: TransactionKey.loadLanguage(
                         Get.context!, TransactionKey.trending),
                     icon: ResourceIcon.iconTrending,
@@ -108,17 +166,23 @@ class HomeScreen extends StatelessWidget {
               ),
               Expanded(
                 // flex: 1,
-                child: _itemMenu(
+                child: widget._itemMenu(
                     title: TransactionKey.loadLanguage(
                         Get.context!, TransactionKey.myBirds),
                     icon: ResourceIcon.iconImage,
                     detail: TransactionKey.loadLanguage(
                         Get.context!, TransactionKey.subMyBirds),
                     onclick: () async {
-                      MyIdController controller = Get.find();
-                      controller.getListCollection();
-                      controller.getListFavorite();
-                      await Get.toNamed(Routes.MYID);
+                      Get.lazyPut<MyIdController>(
+                        () => MyIdController(),
+                      );
+
+                      Timer(Duration(milliseconds: 100), () async {
+                        MyIdController controller = Get.find();
+                        controller.getListCollection();
+                        controller.getListFavorite();
+                        await Get.toNamed(Routes.MYID);
+                      });
                     }),
               ),
             ],
@@ -131,7 +195,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               Expanded(
                 // flex: 5,
-                child: _itemMenu(
+                child: widget._itemMenu(
                     title: TransactionKey.loadLanguage(
                         Get.context!, TransactionKey.search),
                     icon: ResourceIcon.iconSearch,
@@ -146,7 +210,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Expanded(
                 // flex: 6,
-                child: _itemMenu(
+                child: widget._itemMenu(
                     title: TransactionKey.loadLanguage(
                         Get.context!, TransactionKey.wallpaper),
                     icon: ResourceIcon.iconWallpaper,

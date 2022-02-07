@@ -17,9 +17,13 @@ class SearchRepository {
 
   Future<SearchDataModel?> getListDataSearch({String? searchName}) async {
     Response? searchResponse = await ServiceCommon.getInstance()!.getHttp(
-        api: 'https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=true&format=json&srsearch=${searchName ?? ""}', host: "");
+        api:
+            'https://en.wikipedia.org/w/api.php?action=query&list=search&utf8=true&format=json&srsearch=${searchName ?? ""}',
+        host: "");
 
-    var data = searchResponse!.data is Map ? searchResponse.data : json.decode(searchResponse.data);
+    var data = searchResponse!.data is Map
+        ? searchResponse.data
+        : json.decode(searchResponse.data);
 
     _searchDataModel = SearchDataModel.fromJson(data);
 
@@ -27,16 +31,4 @@ class SearchRepository {
 
     return _searchDataModel;
   }
-
-  Future<DetailSearchModel?> getNameOfDataSearch({String? name}) async {
-    Response? nameResponse = await ServiceCommon.getInstance()!.getHttp(
-        api: 'https://en.wikipedia.org/api/rest_v1/page/summary/$name', host: "");
-
-    var data = nameResponse!.data is Map ? nameResponse.data : json.decode(nameResponse.data);
-
-    _detailNameSearch = DetailSearchModel.fromJson(data);
-
-    return _detailNameSearch;
-  }
-
 }

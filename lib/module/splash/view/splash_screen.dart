@@ -1,12 +1,20 @@
+import 'dart:async';
+
 import 'package:base_flutter_framework/components/widget/image_widget/fcore_image.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
+import 'package:base_flutter_framework/translations/app_translations.dart';
 import 'package:base_flutter_framework/utils/constants/colors.dart';
+import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+
+    Timer(Duration(milliseconds: 500), () async {
+      await AppTranslations.load(Locale(Shared.getInstance().localeCode, ""));
+    });
     return Container(
       color: AppColor.secondBackgroundColorLight,
       child: Stack(
@@ -14,7 +22,8 @@ class SplashScreen extends StatelessWidget {
           Center(
             child: FCoreImage(
               ResourceIcon.iconSplash,
-              width: width * 0.36,
+              width: width * 0.28,
+              color: Theme.of(context).primaryColor,
               fit: BoxFit.fitWidth,
             ),
           ),

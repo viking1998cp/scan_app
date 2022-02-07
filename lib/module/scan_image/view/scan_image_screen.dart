@@ -5,6 +5,7 @@ import 'package:base_flutter_framework/module/scan_image/view/list_image_lable.d
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:image_cropper/image_cropper.dart';
 
 class ScanScreen extends GetView<ScanController> {
@@ -19,6 +20,7 @@ class ScanScreen extends GetView<ScanController> {
               child: Column(
         children: [
           Obx(() => CameraWidget(
+                showButtonCap: Get.arguments != null ? true : false,
                 selectImageFromGallery: (file) async {
                   File? croppedFile = await ImageCropper.cropImage(
                       sourcePath: file.path,
@@ -39,10 +41,18 @@ class ScanScreen extends GetView<ScanController> {
                       iosUiSettings: IOSUiSettings(
                         minimumAspectRatio: 1.0,
                       ));
-                  controller.datas(croppedFile == null ? file : croppedFile);
+                  if (croppedFile != null) {
+                    if (controller.indexMode.value == 4) {
+                      controller.dataDetect.clear();
+                      controller.dataDetect.value = [];
 
-                  Get.to(ListDetectScreen(),
-                      arguments: [croppedFile == null ? file : croppedFile]);
+                      await controller.stringPlatform!.send(croppedFile.path);
+                    } else {
+                      controller.datas(croppedFile);
+                    }
+
+                    Get.to(ListDetectScreen(), arguments: [croppedFile]);
+                  }
                 },
                 changeMode: (int mode) {
                   controller.changeMode(mode);

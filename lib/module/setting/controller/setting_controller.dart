@@ -14,6 +14,8 @@ class SettingController extends GetxController {
   RxString version = "".obs;
   RxString buildNumber = "".obs;
 
+  RxDouble ratingIndex = 0.0.obs;
+
   RxMap<String, dynamic> deviceDatasss = RxMap();
 
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();

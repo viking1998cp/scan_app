@@ -1,18 +1,27 @@
+import 'package:base_flutter_framework/components/widget/favorite_button.dart';
+import 'package:base_flutter_framework/components/widget/indicator.dart';
+import 'package:base_flutter_framework/core/models/result_detect.dart';
+import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/scan_image/view/web_view.dart';
 import 'package:base_flutter_framework/module/search/controller/search_controller.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
+import 'package:base_flutter_framework/services/service.dart';
+import 'package:base_flutter_framework/utils/shared.dart';
+import 'package:base_flutter_framework/utils/string.dart';
+import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+part 'search_screen.children.dart';
 
 class SearchScreen extends GetView<SearchController> {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut<SearchController>(() => SearchController());
-
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -25,12 +34,14 @@ class SearchScreen extends GetView<SearchController> {
             textInputAction: TextInputAction.search,
             // controller: controller.textSearchController,
             maxLines: 1,
-            onChanged: (value) {
+            onChanged: (value) {},
+            onSubmitted: (value) {
               controller.textSearchController.text = value;
               controller.searchData(
-                  textSearch: controller.textSearchController.text);
+                  textSearch: controller.textSearchController.text,
+                  context: context);
+              controller.setLoading(true);
             },
-            onSubmitted: (value) {},
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.only(top: 8),
               hintText: 'Search...',
@@ -58,12 +69,25 @@ class SearchScreen extends GetView<SearchController> {
         //       }),
         // ],
       ),
-      body: _buildBody(),
+      body: Column(
+        children: [
+          _buildBody(),
+          Shared.getInstance().layout == 2
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    BannerAdsCustom.getInstanceBottomAds(context),
+                  ],
+                )
+              : SizedBox()
+        ],
+      ),
     );
   }
 
   Widget _buildBody() {
-    return Container(
+    return Expanded(
       child: Obx(() {
         return controller.dataSearch.length != 0
             ? ListView.builder(
@@ -83,38 +107,29 @@ class SearchScreen extends GetView<SearchController> {
                         controller.interstitialAd?.show();
                         controller.setShowAds(1);
                       }
-                      await controller.searchDataDetail(
-                          textName: "${item.title}");
 
                       Get.to(WebviewResult(
-                          url: controller.url.value,
-                          name: controller.name.value));
+                          url: item.contentUrls!.mobile!.page!,
+                          name: item.displaytitle!));
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-                      child: Card(
-                        child: ListTile(
-                          title: Text('${item.title}'),
-                          subtitle: Text(
-                            '${item.snippet!.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' ')}',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
+                      child: itemSearch(item, (index, nice) {}),
                     ),
                   );
                 })
-            : Container(
-                child: Center(
-                  child: Column(
+            : !controller.loading.value
+                ? Container(
+                    child: Center(child: emptyData(Get.context!)),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset("assets/images/image_home.png"),
+                      indicator(),
                       // Text('Enter to search...'),
                     ],
-                  ),
-                ),
-              );
+                  );
       }),
     );
   }

@@ -45,11 +45,22 @@ class NaturalWorldController extends GetxController {
       }
     }
     page++;
+
     listItemResult.addAll(resultLoadMore);
   }
 
   List<ResultDetect> getDataImage() {
     return listItemResult.value;
+  }
+
+  Future<void> upDateLikeData(int index, bool like) async {
+    List<ResultDetect> listUpdate = [];
+    listItemResult.forEach((element) {
+      listUpdate.add(element);
+    });
+    listUpdate[index].isLike = like;
+
+    listItemResult.value = listUpdate;
   }
 
   void setShowAds(int value) {
@@ -69,14 +80,11 @@ class NaturalWorldController extends GetxController {
         request: request,
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {
-            print('$ad loaded');
             interstitialAd = ad;
 
             interstitialAd!.setImmersiveMode(true);
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print('InterstitialAd failed to load: $error.');
-
             interstitialAd = null;
 
             createInterstitialAd();

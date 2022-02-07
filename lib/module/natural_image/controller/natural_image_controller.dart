@@ -7,10 +7,11 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class NaturalImageController extends GetxController {
-  Rxn<WallpaperModel> wallpaperModel = Rxn();
   WallpaperRepository _wallpaperRepository = new WallpaperRepository();
 
-  RxList<WallpaperId> wallpaperIds = <WallpaperId>[].obs;
+  RxList<WallpaperId> wallpaperIdsName = <WallpaperId>[].obs;
+
+  RxList<WallpaperId> wallpaperIdsLoad = <WallpaperId>[].obs;
 
   RxBool? isActive0 = false.obs;
   RxBool? isActive1 = false.obs;
@@ -19,8 +20,8 @@ class NaturalImageController extends GetxController {
 
   RxInt currentIndex = 0.obs;
 
-  RxInt page = 0.obs;
-  RxInt perPage = 100.obs;
+  RxInt page = 1.obs;
+  RxInt perPage = 15.obs;
   RxBool loading = true.obs;
   RxBool limit = false.obs;
 
@@ -47,13 +48,12 @@ class NaturalImageController extends GetxController {
 
   @override
   void onInit() async {
-    print("call onInit");
-
     super.onInit();
   }
 
-  void getData() {
-    getUrls(wallpaperName: "plant");
+  Future<void> getData() async {
+    await getUrls(wallpaperName: "plant");
+    loadData();
     isActive0!.value = true;
   }
 
@@ -70,20 +70,29 @@ class NaturalImageController extends GetxController {
     if (isActive3!.value == true) {
       currentIndex.value = 3;
     }
-    wallpaperIds.clear();
-    page.value = 0;
-    getUrls(wallpaperName: name);
+    wallpaperIdsName.clear();
+    wallpaperIdsLoad.clear();
+    await getUrls(wallpaperName: name);
+    page.value = 1;
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    wallpaperIdsLoad.addAll(wallpaperIdsName.sublist(
+        page.value * perPage.value, (page.value + 1) * perPage.value));
+    page++;
   }
 
   Future<void> getUrls({required String wallpaperName}) async {
     try {
-      wallpaperModel.value = await _wallpaperRepository.getListWallpaperIds(
-          name: wallpaperName, pageCount: page.value);
-      page.value = page.value + 100;
-      List<WallpaperId> resultLoadMore = [];
-      resultLoadMore = await wallpaperModel.value!.id!;
-      resultLoadMore.shuffle();
-      wallpaperIds.addAll(resultLoadMore);
+      int pageLoadName = 1;
+      for (int i = 0; i < 5; i++) {
+        WallpaperModel? wallpaperModel = await _wallpaperRepository
+            .getListWallpaperIds(name: wallpaperName, pageCount: pageLoadName);
+        pageLoadName++;
+
+        wallpaperIdsName.addAll(wallpaperModel!.id!);
+      }
     } on Exception catch (_) {
       limit.value = true;
       print('exception');
@@ -110,14 +119,11 @@ class NaturalImageController extends GetxController {
         request: request,
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {
-            print('$ad loaded');
             interstitialAd = ad;
 
             interstitialAd!.setImmersiveMode(true);
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print('InterstitialAd failed to load: $error.');
-
             interstitialAd = null;
 
             createInterstitialAd();

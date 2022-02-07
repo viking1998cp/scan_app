@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'package:base_flutter_framework/base/di.dart';
 import 'package:base_flutter_framework/components/menu/menu_page.dart/menu_page_common.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
+import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
 
 class SplashController extends GetxController {
@@ -14,6 +17,36 @@ class SplashController extends GetxController {
     super.onInit();
     //send token and user id to server
     _getId();
+
+    if (Platform.isIOS) {
+      bool modelMush = await GoogleMlKit.vision
+          .remoteModelManager()
+          .isModelDownloaded('mush_data');
+
+      if (!modelMush) {
+        SKToast.showToastBottom(
+            messager:
+                "Bạn cần bật mạng để thiết lập cấu hình trong lần đầu khởi chạy",
+            context: Get.context);
+        await GoogleMlKit.vision
+            .remoteModelManager()
+            .downloadModel("mush_data", isWifiRequired: false)
+            .then((value) => print(value));
+      }
+
+      bool birlModel = await GoogleMlKit.vision
+          .remoteModelManager()
+          .isModelDownloaded('bird');
+      if (!birlModel) {
+        SKToast.showToastBottom(
+            messager:
+                "Bạn cần bật mạng để thiết lập cấu hình trong lần đầu khởi chạy",
+            context: Get.context);
+        await GoogleMlKit.vision
+            .remoteModelManager()
+            .downloadModel("bird", isWifiRequired: false);
+      }
+    }
     await loadInitSplashScreen();
   }
 

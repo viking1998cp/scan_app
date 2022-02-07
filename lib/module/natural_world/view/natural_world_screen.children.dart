@@ -1,7 +1,20 @@
 part of 'natural_world_screen.dart';
 
 extension NaturalWorldScreenChildren on NaturalWorldScreen {
-  Widget itemImage({required ResultDetect resultDetect}) {
+  Widget itemImage(
+      {required ResultDetect resultDetect,
+      required BuildContext context,
+      required Function(int index, bool nice) nice}) {
+    bool like = resultDetect.isLike!;
+    if (Shared.getInstance().favoriteCache != null) {
+      Shared.getInstance().favoriteCache!.forEach((element) {
+        if (element.title == resultDetect.title) {
+          like = true;
+          return;
+        }
+      });
+    }
+
     return Container(
       margin: EdgeInsets.only(top: 8, left: 5),
       decoration: BoxDecoration(
@@ -55,13 +68,18 @@ extension NaturalWorldScreenChildren on NaturalWorldScreen {
               ),
               Align(
                 alignment: Alignment.centerRight,
-                child: Padding(
+                child: Container(
                     padding: const EdgeInsets.all(3.0),
+                    margin: const EdgeInsets.only(right: 10, top: 4),
                     child: FavoriteButton(
-                        iconSize: 35,
-                        isFavorite: resultDetect.isLike,
+                        iconSize: 40,
+                        isFavorite: like,
                         valueChanged: (value) {
                           if (value) {
+                            nice(
+                                controller.listItemResult.indexOf(resultDetect),
+                                true);
+
                             Shared.getInstance()
                                 .favoriteCache!
                                 .add(resultDetect);
@@ -69,6 +87,10 @@ extension NaturalWorldScreenChildren on NaturalWorldScreen {
                                 cacheFavorite:
                                     Shared.getInstance().favoriteCache!);
                           } else {
+                            nice(
+                                controller.listItemResult.indexOf(resultDetect),
+                                false);
+
                             Shared.getInstance()
                                 .favoriteCache!
                                 .remove(resultDetect);

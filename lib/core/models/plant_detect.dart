@@ -1,108 +1,104 @@
 class PlantDetect {
   double? score;
+  List<Images>? images;
   Species? species;
-  Gbif? gbif;
 
-  PlantDetect({this.score, this.species, this.gbif});
+  PlantDetect({this.score, this.images, this.species});
 
   PlantDetect.fromJson(Map<String, dynamic> json) {
     score = json['score'];
+    if (json['images'] != null) {
+      images = <Images>[];
+      json['images'].forEach((v) {
+        images!.add(new Images.fromJson(v));
+      });
+    }
     species =
         json['species'] != null ? new Species.fromJson(json['species']) : null;
-    gbif = json['gbif'] != null ? new Gbif.fromJson(json['gbif']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['score'] = this.score;
+    if (this.images != null) {
+      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    }
     if (this.species != null) {
       data['species'] = this.species!.toJson();
     }
-    if (this.gbif != null) {
-      data['gbif'] = this.gbif!.toJson();
-    }
     return data;
   }
 }
 
-class Species {
-  String? scientificNameWithoutAuthor;
-  String? scientificNameAuthorship;
-  Genus? genus;
-  Genus? family;
-  List<String>? commonNames;
-  String? scientificName;
-
-  Species(
-      {this.scientificNameWithoutAuthor,
-      this.scientificNameAuthorship,
-      this.genus,
-      this.family,
-      this.commonNames,
-      this.scientificName});
-
-  Species.fromJson(Map<String, dynamic> json) {
-    scientificNameWithoutAuthor = json['scientificNameWithoutAuthor'];
-    scientificNameAuthorship = json['scientificNameAuthorship'];
-    genus = json['genus'] != null ? new Genus.fromJson(json['genus']) : null;
-    family = json['family'] != null ? new Genus.fromJson(json['family']) : null;
-    commonNames = json['commonNames'].cast<String>();
-    scientificName = json['scientificName'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['scientificNameWithoutAuthor'] = this.scientificNameWithoutAuthor;
-    data['scientificNameAuthorship'] = this.scientificNameAuthorship;
-    if (this.genus != null) {
-      data['genus'] = this.genus!.toJson();
-    }
-    if (this.family != null) {
-      data['family'] = this.family!.toJson();
-    }
-    data['commonNames'] = this.commonNames;
-    data['scientificName'] = this.scientificName;
-    return data;
-  }
-}
-
-class Genus {
-  String? scientificNameWithoutAuthor;
-  String? scientificNameAuthorship;
-  String? scientificName;
-
-  Genus(
-      {this.scientificNameWithoutAuthor,
-      this.scientificNameAuthorship,
-      this.scientificName});
-
-  Genus.fromJson(Map<String, dynamic> json) {
-    scientificNameWithoutAuthor = json['scientificNameWithoutAuthor'];
-    scientificNameAuthorship = json['scientificNameAuthorship'];
-    scientificName = json['scientificName'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['scientificNameWithoutAuthor'] = this.scientificNameWithoutAuthor;
-    data['scientificNameAuthorship'] = this.scientificNameAuthorship;
-    data['scientificName'] = this.scientificName;
-    return data;
-  }
-}
-
-class Gbif {
+class Images {
   String? id;
+  String? o;
+  String? m;
+  String? s;
+  String? organ;
+  String? author;
+  String? date;
+  String? license;
 
-  Gbif({this.id});
+  Images(
+      {this.id,
+      this.o,
+      this.m,
+      this.s,
+      this.organ,
+      this.author,
+      this.date,
+      this.license});
 
-  Gbif.fromJson(Map<String, dynamic> json) {
+  Images.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    o = json['o'];
+    m = json['m'];
+    s = json['s'];
+    organ = json['organ'];
+    author = json['author'];
+    date = json['date'];
+    license = json['license'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['o'] = this.o;
+    data['m'] = this.m;
+    data['s'] = this.s;
+    data['organ'] = this.organ;
+    data['author'] = this.author;
+    data['date'] = this.date;
+    data['license'] = this.license;
+    return data;
+  }
+}
+
+class Species {
+  String? name;
+  String? author;
+  String? family;
+  String? genus;
+  List<String>? commonNames;
+
+  Species({this.name, this.author, this.family, this.genus, this.commonNames});
+
+  Species.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    author = json['author'];
+    family = json['family'];
+    genus = json['genus'];
+    commonNames = json['commonNames'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['author'] = this.author;
+    data['family'] = this.family;
+    data['genus'] = this.genus;
+    data['commonNames'] = this.commonNames;
     return data;
   }
 }

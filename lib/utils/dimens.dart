@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class DimensCommon {
   static double fontSizeBig = 18;
-  static double fontMediumBig = 16;
+  static double fontMediumBig = 14;
   static double fontSizeVeryBig = 38;
   static double fontSizeMediumBig = 30;
-  static double fontSizeSmallBig = 24;
+  static double fontSizeSmallBig = 16;
   static double fontSizeMedium = 14;
+
   static double fontSizeSmall = 12;
   static double fontSizeMediumSmall = 13;
   static double fontSizeVerySmall = 11;

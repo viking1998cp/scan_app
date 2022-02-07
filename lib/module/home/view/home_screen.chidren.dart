@@ -1,14 +1,15 @@
 part of 'home_screen.dart';
 
 extension HomeScreenChildren on HomeScreen {
-  PreferredSize _appBar(BuildContext context) {
+  PreferredSize _appBar(BuildContext context, Function() toSetting) {
     return PreferredSize(
         preferredSize: Size.fromHeight(216.0), // here the desired height
         child: AppBar(
           actions: [
             InkWell(
-              onTap: () {
-                Get.toNamed(Routes.SETTING);
+              onTap: () async {
+                await Get.toNamed(Routes.SETTING);
+                toSetting();
               },
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 30, right: 16, top: 15),
@@ -28,7 +29,7 @@ extension HomeScreenChildren on HomeScreen {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.red,
+                    Theme.of(context).primaryColor.withOpacity(0.5),
                     Theme.of(context).primaryColor,
                     Colors.white,
                   ],
@@ -70,7 +71,7 @@ extension HomeScreenChildren on HomeScreen {
                 icon,
                 width: 24,
                 height: 24,
-                color: Colors.red,
+                color: Theme.of(Get.context!).primaryColor,
               ),
               // Icon(
               //   icon,

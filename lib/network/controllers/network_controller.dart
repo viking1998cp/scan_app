@@ -24,7 +24,6 @@ class NetworkController extends GetxController {
       result = await _connectivity.checkConnectivity();
       print('Result None connect Network: $result');
     } on PlatformException catch (e) {
-      print(e.toString());
       result = null;
     }
 

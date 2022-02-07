@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/services/service.dart';
 import 'package:base_flutter_framework/utils/string.dart';
@@ -34,7 +36,7 @@ class NaturalRepository {
     totalItem.addAll(birds);
     totalItem.addAll(mushrooms);
     totalItem.addAll(plans);
-    totalItem.shuffle();
-    return totalItem;
+    var randomList = (totalItem..shuffle()).take(totalItem.length).toList();
+    return randomList;
   }
 }

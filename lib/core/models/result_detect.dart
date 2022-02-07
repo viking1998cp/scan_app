@@ -74,14 +74,6 @@ class ResultDetect {
 
   ResultDetect.fromJson(Map<String, dynamic> json) {
     bool like = false;
-    if (Shared.getInstance().favoriteCache != null) {
-      Shared.getInstance().favoriteCache!.forEach((element) {
-        if (element.description == description) {
-          like = true;
-          return;
-        }
-      });
-    }
 
     isLike = like;
     type = json['type'];

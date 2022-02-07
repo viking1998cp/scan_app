@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:base_flutter_framework/components/widget/button_no_icon.dart';
 import 'package:base_flutter_framework/components/widget/circle_icon.dart';
+import 'package:base_flutter_framework/components/widget/dialog/input_match_name.dart';
 import 'package:base_flutter_framework/components/widget/image.dart';
 import 'package:base_flutter_framework/components/widget/indicator.dart';
 import 'package:base_flutter_framework/core/models/result_detect.dart';
+import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/scan_image/controller/scan_image_controller.dart';
 import 'package:base_flutter_framework/module/scan_image/view/web_view.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
+import 'package:base_flutter_framework/utils/navigator.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/string.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
@@ -23,12 +26,16 @@ class ListDetectScreen extends GetView<ScanController> {
   File? file;
   int indexSelect = 0;
   Widget banner(File file, BuildContext context) {
-    return Container(
-        height: DimensCommon.sizeHeight(context: context),
+    return Obx(() => Container(
+        height: controller.dataDetect.isEmpty
+            ? Get.height
+            : controller.dataDetect[0].title == 'Not found'
+                ? Get.height
+                : 250,
         alignment: Alignment.topRight,
         decoration: BoxDecoration(
             image: DecorationImage(image: FileImage(file), fit: BoxFit.fill)),
-        child: SizedBox());
+        child: SizedBox()));
   }
 
   Widget listResult(List<ResultDetect> datas, BuildContext context) {
@@ -36,7 +43,9 @@ class ListDetectScreen extends GetView<ScanController> {
       return itemError(context);
     }
     return Container(
-      height: DimensCommon.sizeHeight(context: context),
+      height: Shared.getInstance().layout == 2
+          ? DimensCommon.sizeHeight(context: context) - 90
+          : DimensCommon.sizeHeight(context: context),
       child: Column(
         children: [
           Row(
@@ -64,7 +73,7 @@ class ListDetectScreen extends GetView<ScanController> {
                         itemResult(datas[itemIndex], itemIndex, context),
                 options: CarouselOptions(
                   autoPlay: false,
-                  enableInfiniteScroll: false,
+                  enableInfiniteScroll: true,
                   enlargeCenterPage: false,
                   onPageChanged: (index, car) {
                     indexSelect = index;
@@ -88,30 +97,21 @@ class ListDetectScreen extends GetView<ScanController> {
                 colorBackground: Theme.of(context).primaryColor,
                 textColor: Colors.white,
                 onclick: () async {
-                  List<String>? text = await showTextInputDialog(
-                    context: context,
-                    okLabel: TransactionKey.loadLanguage(
-                        context, TransactionKey.selectOk),
-                    cancelLabel: TransactionKey.loadLanguage(
-                        context, TransactionKey.selectCancel),
-                    textFields: [
-                      DialogTextField(
-                        hintText: TransactionKey.loadLanguage(
-                            context, TransactionKey.name),
-                      ),
-                    ],
-                    title: TransactionKey.loadLanguage(
-                        context, TransactionKey.inputMatchName),
-                    message: TransactionKey.loadLanguage(
-                        context, TransactionKey.matchSave),
-                  );
-                  if (text != null) {
-                    ResultDetect resultDetect = datas[indexSelect].copy();
-                    resultDetect.title = text[0];
-                    Shared.getInstance().collectionCache!.add(resultDetect);
-                    await Shared.getInstance().saveCollection(
-                        cacheCollection: Shared.getInstance().collectionCache!);
-                  }
+                  NavigatorCommon.showDialogCommon(
+                      context: context,
+                      child: InputMatchNameDialog(
+                        hintText: datas[indexSelect].title!,
+                        okClick: (text) async {
+                          ResultDetect resultDetect = datas[indexSelect].copy();
+                          resultDetect.title = text[0];
+                          Shared.getInstance()
+                              .collectionCache!
+                              .add(resultDetect);
+                          await Shared.getInstance().saveCollection(
+                              cacheCollection:
+                                  Shared.getInstance().collectionCache!);
+                        },
+                      ));
                 },
                 padding: EdgeInsets.symmetric()),
           )
@@ -121,31 +121,44 @@ class ListDetectScreen extends GetView<ScanController> {
   }
 
   Widget itemError(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.arrow_back_ios)),
-              Expanded(child: SizedBox()),
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.close)),
-            ],
-          ),
-          Icon(
-            Icons.search,
-            size: 40,
-          ),
-          Text(TransactionKey.loadLanguage(context, TransactionKey.notFound),
-              style: TextAppStyle().textToolBar())
-        ],
+    return Container(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_ios)),
+                Expanded(child: SizedBox()),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close)),
+              ],
+            ),
+            Container(
+                height: Get.height - 150,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.search,
+                      size: 40,
+                    ),
+                    Text(
+                        TransactionKey.loadLanguage(
+                            context, TransactionKey.notFound),
+                        style: TextAppStyle().textToolBar())
+                  ],
+                ))
+          ],
+        ),
       ),
     );
   }
@@ -168,7 +181,7 @@ class ListDetectScreen extends GetView<ScanController> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 80, right: 16),
+                  margin: EdgeInsets.only(left: 85, right: 16),
                   padding: EdgeInsets.only(top: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -177,10 +190,26 @@ class ListDetectScreen extends GetView<ScanController> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           resultDetect.title!,
-                          style: TextAppStyle().styleTitle(),
+                          style: TextAppStyle()
+                              .styleTextNameDetect(resultDetect.title!),
                         ),
                       ),
-                      progressBar(resultDetect.point!)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            TransactionKey.loadLanguage(
+                                    context, TransactionKey.score) +
+                                ": ",
+                            style: TextAppStyle().styleTitle(),
+                          ),
+                          Text(
+                            resultDetect.point!.toStringAsFixed(2),
+                            style: TextAppStyle().styleTextScore(context),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -202,7 +231,8 @@ class ListDetectScreen extends GetView<ScanController> {
                     onclick: () {
                       Get.to(WebviewResult(
                           url: resultDetect.contentUrls!.mobile!.page!,
-                          name: resultDetect.displaytitle!));
+                          name: StringCommon.formatHtml(
+                              resultDetect.displaytitle!)));
                     },
                     padding: EdgeInsets.symmetric(vertical: 10))
               ],
@@ -210,7 +240,7 @@ class ListDetectScreen extends GetView<ScanController> {
           ),
           Container(
             height: 70,
-            margin: EdgeInsets.only(right: 180, bottom: 20),
+            margin: EdgeInsets.only(right: 185, bottom: 20),
             alignment: Alignment.centerLeft,
             child: circleAvatar(
                 radius: 70,
@@ -291,10 +321,27 @@ class ListDetectScreen extends GetView<ScanController> {
           body: Stack(
             children: [
               banner(file!, context),
-              Obx(() => Container(
-                  child: controller.dataDetect.isEmpty
-                      ? indicator()
-                      : listResult(controller.dataDetect, context)))
+              Obx(() => Column(
+                    children: [
+                      Container(
+                          child: controller.dataDetect.isEmpty
+                              ? Container(
+                                  height: (Get.height / 2) + 200,
+                                  child: indicator())
+                              : listResult(controller.dataDetect, context)),
+                      Shared.getInstance().layout == 2
+                          ? Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  BannerAdsCustom.getInstanceBottomAds(context),
+                                ],
+                              ),
+                            )
+                          : SizedBox()
+                    ],
+                  ))
             ],
           )),
     );

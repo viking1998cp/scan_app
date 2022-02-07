@@ -7,6 +7,8 @@ class StringCommon {
   static String keyFavorite = "FAVORITE";
   static String keyCollection = "COLLECTION";
   static String key = "DEVICE_ID";
+
+  static String codeLanguage = "LANGUAGE";
   static String defaultImage =
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.png";
   static String formatHtml(String html) {
@@ -35,6 +37,21 @@ class StringCommon {
       String data = StringCommon.formatHtml(data1);
       name.add(data);
     }
-    return name;
+
+    List<String> nameFormatIssue = [];
+    name.forEach((element) {
+      if (element.length != 1) {
+        nameFormatIssue.add(element);
+      }
+    });
+    if (nameFormatIssue.length > 50) {
+      return nameFormatIssue.sublist(0, 49);
+    }
+    return nameFormatIssue;
+  }
+
+  static double fontSizeScaleFlowLeght(String name,
+      {required double leghtScale, required double fontDefault}) {
+    return fontDefault - ((name.length / leghtScale) * 2);
   }
 }

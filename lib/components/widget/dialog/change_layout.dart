@@ -26,9 +26,9 @@ class _DialogChangeLayoutState extends State<DialogChangeLayout> {
   }
 
   Widget itemLayout(
-      {required String image,
-      required Function() onClick,
-      required int index}) {
+      {required Function() onClick,
+      required int index,
+      required Widget child}) {
     return InkWell(
       onTap: onClick,
       child: Container(
@@ -36,7 +36,9 @@ class _DialogChangeLayoutState extends State<DialogChangeLayout> {
         decoration: index == selectLayout
             ? BoxDecoration(border: Border.all(color: Colors.black, width: 1))
             : null,
-        child: imageFromLocale(url: image, width: 50, height: 50),
+        child: Container(
+          child: child,
+        ),
       ),
     );
   }
@@ -78,21 +80,107 @@ class _DialogChangeLayoutState extends State<DialogChangeLayout> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       itemLayout(
-                          image: ResourceImage.imageLayOutBottom,
                           onClick: () async {
                             selectLayout = 1;
 
                             setState(() {});
                           },
-                          index: 1),
+                          index: 1,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 16,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3)),
+                                  child: SizedBox(),
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: 18,
+                                      width: 12,
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      height: 18,
+                                      width: 12,
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                    SizedBox(
+                                      width: 6,
+                                    ),
+                                    Container(
+                                      height: 18,
+                                      width: 12,
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Container(
+                                  height: 16,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3)),
+                                  child: SizedBox(),
+                                ),
+                              ],
+                            ),
+                          )),
                       itemLayout(
-                          image: ResourceImage.imageLayOutScreen,
                           onClick: () async {
                             selectLayout = 2;
 
                             setState(() {});
                           },
-                          index: 2),
+                          index: 2,
+                          child: Container(
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3)),
+                                  child: SizedBox(),
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Container(
+                                  height: 15,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                              ],
+                            ),
+                          )),
                     ],
                   ),
                   SizedBox(
@@ -122,7 +210,6 @@ class _DialogChangeLayoutState extends State<DialogChangeLayout> {
                           onTap: () async {
                             await Shared.getInstance()
                                 .saveLayOutScreen(layout: selectLayout);
-
                             Get.offAllNamed(Routes.SPLASH);
                           },
                           child: Text(

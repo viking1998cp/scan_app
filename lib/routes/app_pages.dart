@@ -12,6 +12,7 @@ import 'package:base_flutter_framework/module/scan_image/binding/scan_image_bind
 import 'package:base_flutter_framework/module/scan_image/view/list_image_lable.dart';
 import 'package:base_flutter_framework/module/scan_image/view/scan_image_screen.dart';
 import 'package:base_flutter_framework/module/search/binding/search_binding.dart';
+import 'package:base_flutter_framework/module/search/controller/search_controller.dart';
 import 'package:base_flutter_framework/module/search/view/search_screen.dart';
 import 'package:base_flutter_framework/module/setting/binding/setting_binding.dart';
 import 'package:base_flutter_framework/module/setting/view/setting_screen.dart';
@@ -68,5 +69,10 @@ final routePages = [
     name: Routes.MYID,
     page: () => MyIdScreen(),
     binding: MyIdBinding(),
+  ),
+  GetPage(
+    name: Routes.MYID,
+    page: () => SearchScreen(),
+    binding: SearchBinding(),
   ),
 ];

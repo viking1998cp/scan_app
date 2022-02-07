@@ -1,6 +1,10 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:base_flutter_framework/components/widget/dialog/select_language.dart';
 import 'package:base_flutter_framework/module/natural_image/controller/natural_image_controller.dart';
+import 'package:base_flutter_framework/utils/navigator.dart';
+import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -19,18 +23,23 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
       return Scaffold(
         body: SafeArea(
           child: Container(
-            color: Colors.black,
+            alignment: Alignment.center,
+            color: Colors.transparent,
             child: GestureDetector(
               onTap: () {
                 controller.bottomMenu.value = true;
                 controller.autoPlay.value = false;
               },
-              child: controller.downloading.value
-                  ? imageDownloadDialog()
-                  : CarouselSlider.builder(
-                      itemCount: controller.wallpaperIds.length,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CarouselSlider.builder(
+                      itemCount: controller.wallpaperIdsLoad.length,
                       itemBuilder: (ctx, index, idx) {
-                        var id = controller.wallpaperIds[index];
+                        if (index == controller.wallpaperIdsLoad.length - 4) {
+                          controller.loadData();
+                        }
+                        var id = controller.wallpaperIdsLoad[index];
                         return Stack(
                           children: [
                             Obx(() {
@@ -47,7 +56,8 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
                                           child: Container(
                                               width: 50,
                                               height: 50,
-                                              child: CircularProgressIndicator()),
+                                              child:
+                                                  CircularProgressIndicator()),
                                         );
                                       },
                                       errorWidget: (context, url, error) {
@@ -61,17 +71,20 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
                                 ? Align(
                                     alignment: Alignment.bottomCenter,
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 16),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 16),
                                       width: double.infinity,
                                       height: 40,
                                       // color: Color.fromARGB(60, 158, 158, 158),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           Expanded(
                                               flex: 1,
                                               child: Align(
-                                                  alignment: Alignment.centerLeft,
+                                                  alignment:
+                                                      Alignment.centerLeft,
                                                   child: InkWell(
                                                     onTap: () {
                                                       Get.back();
@@ -86,17 +99,22 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
                                             flex: 1,
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     controller.degrees.value =
-                                                        controller.degrees.value + 90;
-                                                    if (controller.degrees.value ==
+                                                        controller
+                                                                .degrees.value +
+                                                            90;
+                                                    if (controller
+                                                            .degrees.value ==
                                                         360) {
-                                                      controller.degrees.value = 0;
-                                                      controller.setDegrees.value =
-                                                          true;
+                                                      controller.degrees.value =
+                                                          0;
+                                                      controller.setDegrees
+                                                          .value = true;
                                                     }
                                                   },
                                                   child: Icon(
@@ -105,11 +123,12 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
                                                     size: 24,
                                                   ),
                                                 ),
-                                                controller.autoPlay.value == true
+                                                controller.autoPlay.value ==
+                                                        true
                                                     ? InkWell(
                                                         onTap: () {
-                                                          controller.autoPlay.value =
-                                                              false;
+                                                          controller.autoPlay
+                                                              .value = false;
                                                         },
                                                         child: Icon(
                                                           Icons.pause,
@@ -119,8 +138,8 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
                                                       )
                                                     : InkWell(
                                                         onTap: () {
-                                                          controller.autoPlay.value =
-                                                              true;
+                                                          controller.autoPlay
+                                                              .value = true;
                                                           controller.bottomMenu
                                                               .value = false;
                                                         },
@@ -142,38 +161,33 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
                                                     )),
                                                 InkWell(
                                                   onTap: () async {
-                                                    controller.downloadImageStatus
+                                                    controller
+                                                        .downloadImageStatus
                                                         .value = true;
-                                                    try {
-                                                      if (controller
-                                                              .downloadImageStatus
-                                                              .value ==
-                                                          true) {
-                                                        downloadDialog(context);
-                                                      }
-                                                      // Saved with this method.
-                                                      var imageId =
-                                                          await ImageDownloader
-                                                              .downloadImage(
-                                                                  getImageRonate(
-                                                                      id.id));
-                                                      if (imageId != null) {
-                                                        Navigator.pop(context);
-                                                      }
-                                                      if (imageId == null) {
-                                                        return;
-                                                      }
-                                                      Get.snackbar('Successful',
-                                                          'Download successfully!',
-                                                          snackPosition:
-                                                              SnackPosition.BOTTOM);
-                                                    } on PlatformException catch (error) {
-                                                      print(error);
-                                                      Get.snackbar('Failed',
-                                                          'Download failed!',
-                                                          snackPosition:
-                                                              SnackPosition.BOTTOM);
+
+                                                    if (controller
+                                                            .downloadImageStatus
+                                                            .value ==
+                                                        true) {
+                                                      downloadDialog(context);
                                                     }
+                                                    // Saved with this method.
+                                                    var imageId =
+                                                        await ImageDownloader
+                                                            .downloadImage(
+                                                                getImageRonate(
+                                                                    id.id));
+                                                    if (imageId != null) {
+                                                      Navigator.pop(context);
+                                                    }
+                                                    if (imageId == null) {
+                                                      return;
+                                                    }
+                                                    Get.snackbar('Successful',
+                                                        'Download successfully!',
+                                                        snackPosition:
+                                                            SnackPosition
+                                                                .BOTTOM);
                                                   },
                                                   child: Icon(
                                                     Icons.file_download,
@@ -198,6 +212,11 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
                         initialPage: indexPage,
                         autoPlay: controller.autoPlay.value,
                       )),
+                  Visibility(
+                      visible: controller.downloading.value,
+                      child: imageDownloadDialog())
+                ],
+              ),
             ),
           ),
         ),
@@ -252,7 +271,7 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
           height: 120.0,
           width: 200.0,
           child: Card(
-            color: Colors.black,
+            color: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -276,96 +295,96 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
         both = "Both Screen",
         system = "System";
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Obx(() {
-          return AlertDialog(
-            content: Container(
-              height: 70,
-              width: 400,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed: () async {
-                          controller.isDisable.value
-                              ? null
-                              : home = await Wallpaper.homeScreen(
-                                  options: RequestSizeOptions.RESIZE_FIT,
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height);
-                          controller.downloading.value = false;
-                          home = home;
-                          Get.snackbar(
-                              'Home Screen', 'Set wallpaper successfully!',
-                              snackPosition: SnackPosition.BOTTOM);
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(
-                          Icons.home_outlined,
-                          color: Colors.blue,
-                          size: 36,
-                        ),
+    NavigatorCommon.showDialogCommon(
+        context: context,
+        barrierDismissible: true,
+        rootNavigator: true,
+        child: AlertDialog(
+          content: Container(
+            height: 70,
+            width: 400,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        home = await Wallpaper.homeScreen(
+                            options: RequestSizeOptions.RESIZE_FIT,
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height);
+                        controller.downloading.value = false;
+                        home = home;
+
+                        SKToast.showToastBottom(
+                            messager:
+                                'Home Screen: Set wallpaper successfully!',
+                            context: context);
+
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.home_outlined,
+                        color: Colors.blue,
+                        size: 36,
                       ),
-                      Text('Home Screen')
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed: controller.isDisable.value
-                            ? null
-                            : () async {
-                                both = await Wallpaper.bothScreen();
-                                controller.downloading.value = false;
-                                both = both;
-                                Get.snackbar('Both Screen',
-                                    'Set wallpaper successfully!',
-                                    snackPosition: SnackPosition.BOTTOM);
-                                Navigator.of(context).pop();
-                              },
-                        icon: Icon(
-                          Icons.image,
-                          color: Colors.blue,
-                          size: 36,
-                        ),
+                    ),
+                    Text('Home Screen')
+                  ],
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        both = await Wallpaper.bothScreen();
+                        controller.downloading.value = false;
+                        both = both;
+
+                        SKToast.showToastBottom(
+                            messager:
+                                'Both Screen: Set wallpaper successfully!',
+                            context: context);
+
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.image,
+                        color: Colors.blue,
+                        size: 36,
                       ),
-                      Text('Both Screen')
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed: controller.isDisable.value
-                            ? null
-                            : () async {
-                                lock = await Wallpaper.lockScreen();
-                                controller.downloading.value = false;
-                                lock = lock;
-                                Get.snackbar('Lock Screen',
-                                    'Set wallpaper successfully!',
-                                    snackPosition: SnackPosition.BOTTOM);
-                                Navigator.of(context).pop();
-                              },
-                        icon: Icon(
-                          Icons.lock_outlined,
-                          color: Colors.blue,
-                          size: 36,
-                        ),
+                    ),
+                    Text('Both Screen')
+                  ],
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        lock = await Wallpaper.lockScreen();
+                        controller.downloading.value = false;
+                        lock = lock;
+
+                        SKToast.showToastBottom(
+                            messager:
+                                'Lock Screen: Set wallpaper successfully!',
+                            context: context);
+
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.lock_outlined,
+                        color: Colors.blue,
+                        size: 36,
                       ),
-                      Text('Lock Screen')
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    Text('Lock Screen')
+                  ],
+                ),
+              ],
             ),
-          );
-        });
-      },
-    );
+          ),
+        ));
   }
 
   String getImageRonate(String id) {

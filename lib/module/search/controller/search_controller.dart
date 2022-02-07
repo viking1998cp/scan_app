@@ -1,54 +1,67 @@
+import 'package:base_flutter_framework/base/base_controller.dart';
+import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/core/models/search.dart';
+import 'package:base_flutter_framework/repository/detect_repository.dart';
 import 'package:base_flutter_framework/repository/search_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
-class SearchController extends GetxController {
+class SearchController extends BaseController {
   SearchRepository _searchRepository = new SearchRepository();
 
   Rxn<SearchDataModel> searchDataModel = Rxn();
-  Rxn<DetailSearchModel> searchDetailModel = Rxn();
 
-  RxList<Search> dataSearch = <Search>[].obs;
+  RxList<ResultDetect> dataSearch = <ResultDetect>[].obs;
 
-  RxString url = "".obs;
-  RxString name = "".obs;
+  DetectRepository _getResultRepo = DetectRepository();
+
   RxInt showAds = 1.obs;
+
+  RxBool loading = false.obs;
 
   final TextEditingController textSearchController = TextEditingController();
 
-  Future<void> searchData({String? textSearch}) async {
+  Future<void> searchData(
+      {String? textSearch, required BuildContext context}) async {
     try {
       dataSearch.clear();
       searchDataModel.value =
           await _searchRepository.getListDataSearch(searchName: textSearch);
       List<Search> searchResults = [];
-      searchResults = await searchDataModel.value!.query!.search!;
-      dataSearch.addAll(searchResults);
+      searchResults = searchDataModel.value!.query!.search!;
+      List<ResultDetect> listDataNew = [];
+      for (int i = 0; i < searchResults.length; i++) {
+        ResultDetect data =
+            await _getResultRepo.getResultByName(searchResults[i].title!);
+        if (data.title == "Not found.") {
+          continue;
+        }
+        listDataNew.add(data);
+      }
+      loading.value = false;
+      dataSearch.addAll(listDataNew);
     } on Exception catch (_) {
-      print('exception');
-    } catch (error) {
-      print('error');
-    }
+    } catch (error) {}
   }
 
-  Future<void> searchDataDetail({String? textName}) async {
-    try {
-      searchDetailModel.value =
-          await _searchRepository.getNameOfDataSearch(name: textName);
+  Future<void> upDateLikeData(int index, bool like) async {
+    List<ResultDetect> listUpdate = [];
+    dataSearch.forEach((element) {
+      listUpdate.add(element);
+    });
+    listUpdate[index].isLike = like;
 
-      url.value = await searchDetailModel.value!.contentUrls!.mobile!.page!;
-      name.value = await searchDetailModel.value!.titles!.display!;
-    } on Exception catch (_) {
-      print('exception');
-    } catch (error) {
-      print('error');
-    }
+    dataSearch.value = listUpdate;
   }
 
   void setShowAds(int value) {
     showAds.value = value;
+  }
+
+  void setLoading(bool value) {
+    loading.value = value;
   }
 
   static final AdRequest request = AdRequest(

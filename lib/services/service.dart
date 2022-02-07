@@ -9,7 +9,8 @@ class ServiceCommon {
   final String configUrl = "http://192.168.1.112:8004/config";
   final String getDetail = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
   final String hostUploadImage = 'https://api.plantnet.org/v1/images';
-  final String apiDetectPlant = 'https://my-api.plantnet.org/v2/identify/all';
+  final String apiDetectPlant =
+      'https://api.plantnet.org/v1/projects/the-plant-list/queries/identify?illustratedOnly=true&clientType=web&clientVersion=3.0.0&lang=en&mediaSource=file';
   // final String modeArticle
 
   static ServiceCommon? getInstance() {
@@ -23,7 +24,7 @@ class ServiceCommon {
       required String host,
       bool? cancelRequest}) async {
     // await Dio(options)?.clear();
-    jsonEncode(param);
+
     Response? response;
     try {
       Dio dio = new Dio(_baseOptionsFromToken());
@@ -32,7 +33,8 @@ class ServiceCommon {
           onRequest: (request, handler) {
             request.headers['Accept'] = "application/json";
             request.headers['Content-type'] = "application/json";
-
+            request.headers['User-Agent'] =
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36";
             return handler.next(request);
           },
           onError: (e, handler) async {
@@ -76,7 +78,50 @@ class ServiceCommon {
   }) async {
     jsonEncode(param);
     Dio dio = getApiClient();
-    Response response = await dio.post(host + api, data: param);
+    Response? response;
+    try {
+      Dio dio = new Dio(_baseOptionsFromToken());
+      dio.interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (request, handler) {
+            request.headers['Accept'] = "application/json";
+            request.headers['Content-type'] = "application/json";
+            request.headers['User-Agent'] =
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36";
+            return handler.next(request);
+          },
+          onError: (e, handler) async {
+            if (e.response?.statusCode == 404) {
+              response = null;
+              handler.resolve(Response(
+                  requestOptions: RequestOptions(path: host + api),
+                  data: {
+                    "type":
+                        "https://mediawiki.org/wiki/HyperSwitch/errors/not_found",
+                    "title": "Not found.",
+                    "method": "get",
+                    "detail": "Page or revision not found.",
+                    "uri":
+                        "/vi.wikipedia.org/v1/page/summary/Amanita_muscaria_flavivolvata"
+                  }));
+              return;
+            }
+          },
+        ),
+      );
+      response = await dio
+          .post(
+            host + api,
+            data: param,
+          )
+          .catchError((_e) {});
+      if (response!.statusCode == 404) {
+        return null;
+      }
+      return response;
+    } on DioError catch (e) {
+      return null;
+    }
 
     return response;
   }

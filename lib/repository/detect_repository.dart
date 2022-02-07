@@ -9,12 +9,14 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:ui' as ui;
 
 class DetectRepository {
-  Future<List<ResultDetect>> getListResult(List<ImageLabel> data) async {
+  Future<List<ResultDetect>> getListResult(
+      List<ImageLabel> data, int indexMode) async {
     List<ResultDetect> dataDetect = [];
     data.forEach((element) async {});
     for (int i = 0; i < data.length; i++) {
       if (!data[i].label.contains('found')) {
-        ResultDetect resultDetect = await getResultByName(data[i].label);
+        ResultDetect resultDetect = await getResultByName(data[i].label,
+            locace: indexMode == 3 ? "en" : null);
         if (!resultDetect.title!.contains('Not found') &&
             !resultDetect.displaytitle!.contains('None')) {
           resultDetect.point = (data[i].confidence * 100).round();
@@ -35,8 +37,8 @@ class DetectRepository {
           api: name.replaceAll(" ", "_"),
           host:
               'https://${locace ?? ui.window.locale.languageCode}.wikipedia.org/api/rest_v1/page/summary/');
-      print(response!.data);
-      return ResultDetect.fromJson(response.data);
+
+      return ResultDetect.fromJson(response!.data);
     } catch (_e) {
       ResultDetect resultDetect =
           ResultDetect(title: "Not found", displaytitle: "None");
@@ -52,15 +54,13 @@ class DetectRepository {
 
   Future<List<ImageLabel>> detectPlant(String urlModel) async {
     Map<String, dynamic> param = HashMap();
-    param.putIfAbsent('api-key', () => '2b10tQGE4oZTe8r23CjDhFnAe');
-    param.putIfAbsent('images', () => urlModel);
-    param.putIfAbsent('images', () => urlModel);
-    param.putIfAbsent('organs', () => 'flower');
-    param.putIfAbsent('organs', () => 'leaf');
+    List dataIMage = [];
+    dataIMage.add({"url": urlModel});
+    param.putIfAbsent('images', () => dataIMage);
 
     Response? response = await ServiceCommon.getInstance()!
-        .getHttp(api: "", host: ServiceCommon().apiDetectPlant, param: param);
-    if (response!.data == null) return [];
+        .postHttp(api: "", host: ServiceCommon().apiDetectPlant, param: param);
+    if (response!.data["title"] == "Not found.") return [];
     List data = response.data['results'];
     List<PlantDetect> plantDetects = [];
     data.forEach((element) {
@@ -72,9 +72,9 @@ class DetectRepository {
       if (element.score! > 0.03) {
         Map<String, dynamic> data = HashMap();
         data.putIfAbsent('confidence', () => element.score!);
-        data.putIfAbsent(
-            'text', () => element.species!.family!.scientificName!);
+        data.putIfAbsent('text', () => element.species!.commonNames!.first);
         data.putIfAbsent('index', () => 0);
+
         results.add(ImageLabel(data));
       }
     });

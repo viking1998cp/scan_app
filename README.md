@@ -1,2 +1,6 @@
-# scan_app
-Ứng dụng nhận biết các loài thực vật, chó, mèo , chim qua hình ảnh sử dụng google mlkit và tensorflow
+
+How to run project?
+
+0. Install environment flutter https://flutter.dev/docs/get-started/install
+1. Run command in folder source: 
+    flutter pub get

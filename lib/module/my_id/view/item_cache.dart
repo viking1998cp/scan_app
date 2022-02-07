@@ -80,12 +80,13 @@ class _ItemCacheState extends State<ItemCache> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Padding(
+                  child: Container(
                       padding: const EdgeInsets.all(3.0),
+                      margin: const EdgeInsets.only(right: 10, top: 4),
                       child: widget.mode == 2
                           ? FavoriteButton(
                               isFavorite: true,
-                              iconSize: 30,
+                              iconSize: 35,
                               valueChanged: (value) {
                                 widget.unLikeClick!();
                               })

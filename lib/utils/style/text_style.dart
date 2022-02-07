@@ -1,5 +1,6 @@
 import 'package:base_flutter_framework/utils/color.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
+import 'package:base_flutter_framework/utils/string.dart';
 import 'package:flutter/material.dart';
 
 class TextAppStyle {
@@ -64,6 +65,23 @@ class TextAppStyle {
     );
   }
 
+  TextStyle styleTextNameDetect(String name) {
+    return TextStyle(
+      color: ColorCommon.colorBlack,
+      fontWeight: FontWeight.w700,
+      fontSize: StringCommon.fontSizeScaleFlowLeght(name,
+          leghtScale: 40, fontDefault: DimensCommon.fontMediumBig),
+    );
+  }
+
+  TextStyle styleTextScore(BuildContext context) {
+    return TextStyle(
+      color: Theme.of(context).primaryColor,
+      fontWeight: FontWeight.w700,
+      fontSize: DimensCommon.fontMediumBig,
+    );
+  }
+
   TextStyle styleTitleBig() {
     return TextStyle(
       color: ColorCommon.colorTitleBig,
@@ -105,7 +123,7 @@ class TextAppStyle {
     return TextStyle(
       color: ColorCommon.colorBlack,
       fontWeight: FontWeight.w600,
-      fontSize: DimensCommon.fontSizeMedium,
+      fontSize: DimensCommon.fontSizeSmallBig,
     );
   }
 

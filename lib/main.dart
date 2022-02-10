@@ -18,10 +18,7 @@ Future<void> main() async {
   await Shared.getInstance().getCollection();
   await Shared.getInstance().getLanguage();
   await DependencyInjection.init();
-<<<<<<< HEAD
-=======
   print('test');
->>>>>>> 8225f311ae31e29558c3e1b1107633404ab82320
   cameras = await availableCameras();
   runApp(App());
   configLoading();

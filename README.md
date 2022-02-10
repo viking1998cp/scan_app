@@ -1,6 +1,4 @@
 
-How to run project?
-
-0. Install environment flutter https://flutter.dev/docs/get-started/install
-1. Run command in folder source: 
-    flutter pub get
+SCAN APP
+    Ứng dụng nhận diện cây, chim , chó , nấm sử dụng google vision , tensorflow
+    Hỗ trợ thay ảnh nền. có săn thư viện ảnh các loài cây , chó , nấm, chim

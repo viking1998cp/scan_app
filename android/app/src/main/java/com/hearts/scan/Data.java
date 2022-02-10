@@ -1,4 +1,4 @@
-package com.example.untitled1;
+package com.hearts.scan;
 
 import android.os.Parcel;
 import android.os.Parcelable;

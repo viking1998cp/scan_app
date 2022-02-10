@@ -38,7 +38,7 @@ class ScanController extends BaseController {
 
   Category? category;
 
-  String? stringCodecChannel = 'com.example.untitled1/message';
+  String? stringCodecChannel = 'com.hearts.scan/message';
 
   BasicMessageChannel<String>? stringPlatform;
 

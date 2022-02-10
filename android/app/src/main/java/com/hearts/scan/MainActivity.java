@@ -1,4 +1,4 @@
-package com.example.untitled1;
+package com.hearts.scan;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -32,7 +32,7 @@ import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class MainActivity extends FlutterActivity {
 
-    private String MESSAGE_CHANNEL = "com.example.untitled1/message";
+    private String MESSAGE_CHANNEL = "com.hearts.scan/message";
 
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {

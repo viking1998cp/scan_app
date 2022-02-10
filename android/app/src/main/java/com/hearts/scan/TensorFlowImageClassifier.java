@@ -1,4 +1,4 @@
-package com.example.untitled1;
+package com.hearts.scan;
 
 /* Copyright 2016 The TensorFlow Authors. All Rights Reserved.
  * Modifications copyright (C) 2018 Josef Steppan

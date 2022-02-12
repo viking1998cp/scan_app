@@ -18,9 +18,19 @@ import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.UriUtils;
+import com.google.android.play.core.assetpacks.AssetPackLocation;
+import com.google.android.play.core.assetpacks.AssetPackManager;
+import com.google.android.play.core.assetpacks.AssetPackManagerFactory;
+import com.google.android.play.core.assetpacks.AssetPackState;
+import com.google.android.play.core.assetpacks.AssetPackStates;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.android.play.core.tasks.Task;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.flutter.Log;
@@ -29,11 +39,13 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.BasicMessageChannel;
 import io.flutter.plugin.common.StringCodec;
 import io.flutter.plugins.GeneratedPluginRegistrant;
+import android.content.res.AssetManager;
 
 public class MainActivity extends FlutterActivity {
 
     private String MESSAGE_CHANNEL = "com.hearts.scan/message";
-
+     String assetPackName = "install_time_asset_pack";
+    AssetPackManager assetPackManager;
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
@@ -63,7 +75,47 @@ public class MainActivity extends FlutterActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initClassifier();
+        AssetManager assetManager = this.getAssets();
+
+        try {
+
+            InputStream is = assetManager.open("install_time2.txt");
+            int length = is.available();
+            byte[] buffer = new byte[length];
+            is.read(buffer);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("puzzle",e.getMessage() );
+        }
+        // assetPackManager = AssetPackManagerFactory.getInstance(this.getApplicationContext());
+        // assetPackManager.getPackStates(Collections.singletonList(assetPackName))
+        //         .addOnCompleteListener(new OnCompleteListener<AssetPackStates>() {
+        //             @Override
+        //             public void onComplete(Task<AssetPackStates> task) {
+        //                 AssetPackStates assetPackStates;
+        //                 try {
+        //                     assetPackStates = task.getResult();
+        //                     AssetPackState assetPackState =
+        //                             assetPackStates.packStates().get(assetPackName);
+
+        //                     Log.d("puzzle", "status: " + assetPackState.status() +
+        //                             ", name: " + assetPackState.name() +
+        //                             ", errorCode: " + assetPackState.errorCode() +
+        //                             ", bytesDownloaded: " + assetPackState.bytesDownloaded() +
+        //                             ", totalBytesToDownload: " + assetPackState.totalBytesToDownload() +
+        //                             ", transferProgressPercentage: " + assetPackState.transferProgressPercentage());
+
+        //                 }catch (Exception e){
+        //                     Log.d("MainActivity", e.getMessage());
+        //                 }
+        //             }
+        //         });
+//                List<String> list = new ArrayList();
+//        list.add(assetPackName);
+//
+//        assetPackManager.fetch(list);
+//   initClassifier();
         Log.d("AAAAAAAA", "Test1");
 
     }
@@ -75,8 +127,20 @@ public class MainActivity extends FlutterActivity {
     private static final float IMAGE_STD = 128;
     private static final String INPUT_NAME = "input";
     private static final String OUTPUT_NAME = "InceptionV3/Predictions/Reshape_1";
-    private static final String MODEL_FILE = "file:///android_asset/dog.obb";
 
+
+    private String getAbsoluteAssetPath(String assetPack, String relativeAssetPath) {
+        AssetPackLocation assetPackPath = assetPackManager.getPackLocation(assetPack);
+        Log.d("puzzle", "invoke getAbsoluteAssetPath");
+
+        String assetsFolderPath = assetPackPath.assetsPath();
+        // equivalent to: FilenameUtils.concat(assetPackPath.path(), "assets");
+
+       return assetsFolderPath + relativeAssetPath;
+
+    }
+
+    private static final String MODEL_FILE = "file:///android_asset/dog.obb";
     protected synchronized void initClassifier() {
         Log.d("AAAAAAAA", "Test2");
 

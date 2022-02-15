@@ -116,6 +116,7 @@ dependencies:
   shared_preferences: ^2.0.11
   native_admob_flutter: ^1.5.0
   permission_handler: ^8.3.0
+  flutter_play_asset_delivery: ^0.0.2
   #Device ID
 #  device_info_plus: ^3.0.1
 

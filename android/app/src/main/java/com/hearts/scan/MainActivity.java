@@ -18,9 +18,21 @@ import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.UriUtils;
+import com.google.android.play.core.assetpacks.AssetPackLocation;
+import com.google.android.play.core.assetpacks.AssetPackManager;
+import com.google.android.play.core.assetpacks.AssetPackManagerFactory;
+import com.google.android.play.core.assetpacks.AssetPackState;
+import com.google.android.play.core.assetpacks.AssetPackStates;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.android.play.core.tasks.Task;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.flutter.Log;
@@ -29,11 +41,13 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.BasicMessageChannel;
 import io.flutter.plugin.common.StringCodec;
 import io.flutter.plugins.GeneratedPluginRegistrant;
+import android.content.res.AssetManager;
 
 public class MainActivity extends FlutterActivity {
 
     private String MESSAGE_CHANNEL = "com.hearts.scan/message";
 
+    
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
@@ -60,10 +74,36 @@ public class MainActivity extends FlutterActivity {
         });
     }
 
+
+    private File createFileFromInputStream(InputStream inStream) {
+
+        try{
+            File f = new File("file:///android_asset/dog.obb");
+            OutputStream outputStream = new FileOutputStream(f);
+            byte buffer[] = new byte[1024];
+            int length = 0;
+
+            while((length=inStream.read(buffer)) > 0) {
+                outputStream.write(buffer,0,length);
+            }
+
+            outputStream.close();
+            inStream.close();
+
+            return f;
+        }catch (IOException e) {
+            //Logging exceptionBBB
+            Log.d("AAA", e.getMessage());
+        }
+
+        return null;
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initClassifier();
+      
+        
+//   initClassifier();
         Log.d("AAAAAAAA", "Test1");
 
     }
@@ -75,8 +115,11 @@ public class MainActivity extends FlutterActivity {
     private static final float IMAGE_STD = 128;
     private static final String INPUT_NAME = "input";
     private static final String OUTPUT_NAME = "InceptionV3/Predictions/Reshape_1";
-    private static final String MODEL_FILE = "file:///android_asset/dog.obb";
 
+
+ 
+
+    private static  String MODEL_FILE = "file:///android_asset/dog.obb";
     protected synchronized void initClassifier() {
         Log.d("AAAAAAAA", "Test2");
 

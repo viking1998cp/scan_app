@@ -6,6 +6,7 @@ import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_play_asset_delivery/flutter_play_asset_delivery.dart';
 import 'package:get/get.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
@@ -47,7 +48,9 @@ class SplashController extends GetxController {
             .downloadModel("bird", isWifiRequired: false);
       }
     }
-    await loadInitSplashScreen();
+    File file = await FlutterPlayAssetDelivery.getAssetFile("dog.obb");
+    print(file.path);
+    // await loadInitSplashScreen();
   }
 
   @override

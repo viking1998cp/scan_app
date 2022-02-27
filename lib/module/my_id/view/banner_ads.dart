@@ -42,8 +42,6 @@ class BannerAdsCustom extends StatefulWidget {
 class _BannerAdsCustomState extends State<BannerAdsCustom> {
   Widget? child;
 
-  static const _adUnitID = "<Your ad unit ID>";
-
   final _nativeAdController = NativeAdController();
 
   @override

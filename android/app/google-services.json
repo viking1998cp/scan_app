@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1019049142622",
+    "project_id": "plant-identifier-64983",
+    "storage_bucket": "plant-identifier-64983.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019049142622:android:c7b9c13416a2b31a5547cf",
+        "android_client_info": {
+          "package_name": "com.scanthis.plant.identification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019049142622-b6n2ncr8ru26300beges6pbn0fh9hfjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDesOmBW8Y6-8yzYM402iQluCqKLe_5CT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019049142622-b6n2ncr8ru26300beges6pbn0fh9hfjn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1019049142622-cto1i6qddl6g4qun76rvlhfkt5unoibu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.scanthis.plant.identification"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

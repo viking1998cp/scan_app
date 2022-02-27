@@ -32,20 +32,6 @@ target 'Runner' do
   use_modular_headers!
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
-  pod 'Firebase/Analytics'
-  # Add the pod for Firebase Crashlytics
-  pod 'Firebase/Crashlytics'
-
-  # Add the pods for any other Firebase products you want to use in your app
-  # For example, to use Firebase Authentication and Cloud Firestore
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Core'
-  pod 'Firebase/Messaging'
-  pod 'GoogleMaps'
-  pod 'TensorFlowLiteC', '2.2.0'
-  
-
-  
   use_frameworks!
   use_modular_headers!
 

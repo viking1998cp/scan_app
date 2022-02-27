@@ -38,7 +38,7 @@ class ScanController extends BaseController {
 
   Category? category;
 
-  String? stringCodecChannel = 'com.hearts.scan/message';
+  String? stringCodecChannel = 'com.scanthis.plant.identification/message';
 
   BasicMessageChannel<String>? stringPlatform;
 

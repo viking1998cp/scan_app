@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_flutter_framework/app.dart';
 import 'package:base_flutter_framework/components/menu/item_menu.dart';
+import 'package:base_flutter_framework/components/widget/dialog/buy_pro.dart';
 import 'package:base_flutter_framework/components/widget/dialog/change_layout.dart';
 import 'package:base_flutter_framework/components/widget/dialog/select_language.dart';
 import 'package:base_flutter_framework/components/widget/tool_bar.dart';

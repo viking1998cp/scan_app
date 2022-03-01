@@ -101,6 +101,7 @@ dependencies {
     implementation 'com.google.mlkit:image-labeling-custom:16.3.1'
     implementation 'com.google.android.play:core:1.7.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.billingclient:billing:4.0.0'
 }
 
 

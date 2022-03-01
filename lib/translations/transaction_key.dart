@@ -53,6 +53,18 @@ class TransactionKey {
   static final String thankRatting = "thank_ratting";
   static final String rateInStore = "rate_in_store";
 
+  static final String titleBuyPro = "title_buy_pro";
+  static final String buyPro1Title = "buy_pro_1_title";
+  static final String buyPro1Content = "buy_pro_1_content";
+  static final String buyPro2Title = "buy_pro_2_title";
+  static final String buyPro2Content = "buy_pro_2_content";
+  static final String buyPro3Title = "buy_pro_3_title";
+  static final String buyPro3Content = "buy_pro_3_content";
+  static final String oneYear = "1_year";
+  static final String oneMonth = "1_month";
+  static final String tryFree = "try_free";
+  static final String tryFreeDetail = "try_free_detail";
+  static final String recurringBilling = "recurring_billing";
   //detect language
   static final String picture = 'picture';
   static final String notFound = 'not_found';

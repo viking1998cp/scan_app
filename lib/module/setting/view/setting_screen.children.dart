@@ -106,7 +106,9 @@ extension SettingScreenChildren on SettingScreen {
             ),
             ItemMenu(
               icon: ResourceIcon.iconBuyPro,
-              onclick: () {},
+              onclick: () {
+                showBottomSheet(child: DialogBuypro(), context: context);
+              },
               title: TransactionKey.loadLanguage(
                 context,
                 TransactionKey.buyPro,
@@ -406,5 +408,22 @@ extension SettingScreenChildren on SettingScreen {
         ),
       ),
     );
+  }
+
+  Future<void> showBottomSheet(
+      {required Widget child, required BuildContext context}) async {
+    await showModalBottomSheet<dynamic>(
+        useRootNavigator: true,
+        isScrollControlled: true,
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        builder: (BuildContext bc) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [child],
+          );
+        });
   }
 }

@@ -26,6 +26,10 @@ class ColorCommon {
   static Color colorCostArea = HexColor("20AE3A");
   static Color colorTitleBig = HexColor("222222");
 
+  //buy pro
+  static Color colorTitleBuyPro1 = HexColor("118638");
+  static Color colorTitleBuyPro2 = HexColor("118638");
+  static Color colorTitleBuyPro3 = HexColor("118638");
   //Color new app
   static final Color colorBlack = HexColor("333333");
   static final Color colorBlack2 = HexColor("666666");

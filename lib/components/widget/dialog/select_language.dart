@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_flutter_framework/app.dart';
+import 'package:base_flutter_framework/components/widget/dialog/buy_pro.dart';
 import 'package:base_flutter_framework/components/widget/indicator.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:base_flutter_framework/translations/app_translations.dart';
@@ -113,6 +114,14 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     ),
                     InkWell(
                         onTap: () async {
+                          if (Application()
+                                  .supportedLanguagesName[indexSelect]
+                                  .contains('*') &&
+                              Shared.getInstance().timeFree == null) {
+                            await showBottomSheet(
+                                context: context, child: DialogBuypro());
+                            return;
+                          }
                           if (indexSelect == -1) {
                             await Shared.getInstance()
                                 .saveLocaleCodeAutomatic();
@@ -137,5 +146,22 @@ class _SelectLanguageState extends State<SelectLanguage> {
         ),
       ),
     );
+  }
+
+  Future<void> showBottomSheet(
+      {required Widget child, required BuildContext context}) async {
+    await showModalBottomSheet<dynamic>(
+        useRootNavigator: true,
+        isScrollControlled: true,
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        builder: (BuildContext bc) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [child],
+          );
+        });
   }
 }

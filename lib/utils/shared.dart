@@ -33,6 +33,9 @@ class Shared {
   List<ResultDetect>? collectionCache;
   List<ResultDetect>? favoriteCache;
 
+  int? timeFree;
+  bool buyFree = false;
+
   // List<Article>? niceArticleData = [];
 
   Future<void> saveFavorite({required List<ResultDetect> cacheFavorite}) async {
@@ -95,6 +98,46 @@ class Shared {
     }
 
     return colorPrimary!;
+  }
+
+  Future<bool> saveTimeFree({required int time}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    this.timeFree = time;
+    await preferences.setInt(StringCommon.keyTimeFree, time);
+
+    return true;
+  }
+
+  Future<int?> getTimeFree() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    if (preferences.containsKey(StringCommon.keyColor)) {
+      timeFree = preferences.getInt(StringCommon.keyTimeFree);
+      if (timeFree! > (DateTime.now().millisecondsSinceEpoch / 1000).round()) {
+        timeFree = null;
+      }
+    } else {
+      timeFree = null;
+    }
+
+    return timeFree;
+  }
+
+  Future<bool> saveBuyFree({required bool buy}) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    this.buyFree = buy;
+    await preferences.setBool(StringCommon.keyBuyFree, buy);
+    return true;
+  }
+
+  Future<bool> getBuyFree() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    if (preferences.containsKey(StringCommon.keyBuyFree)) {
+      buyFree = preferences.getBool(StringCommon.keyBuyFree) ?? false;
+    } else {
+      buyFree = false;
+    }
+
+    return buyFree;
   }
 
   Future<bool> saveLocaleCode({required String code}) async {

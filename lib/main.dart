@@ -17,6 +17,8 @@ Future<void> main() async {
   await Shared.getInstance().getLikeData();
   await Shared.getInstance().getCollection();
   await Shared.getInstance().getLanguage();
+  await Shared.getInstance().getTimeFree();
+  await Shared.getInstance().getBuyFree();
   await DependencyInjection.init();
   print('test');
   cameras = await availableCameras();

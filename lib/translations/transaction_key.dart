@@ -73,6 +73,8 @@ class TransactionKey {
   static final String loadingData = "loading_data";
 
   static final String score = "score";
+  static final String noBuyPro = "title_no_buy_pro";
+  static final String successBuyPro = "success_buy_pro";
 
   static String loadLanguage(BuildContext context, String key) {
     return AppTranslations.of(context).text(key);

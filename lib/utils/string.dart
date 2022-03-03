@@ -2,6 +2,8 @@ import 'package:html/parser.dart';
 
 class StringCommon {
   static String keyColor = "COLOR BOX";
+  static String keyTimeFree = "TIME_FREE";
+  static String keyBuyFree = "BUY_FREE";
   static String keyLayOut = "LAYOUT";
   static String keyDeviceId = "DEVICE_ID";
   static String keyFavorite = "FAVORITE";

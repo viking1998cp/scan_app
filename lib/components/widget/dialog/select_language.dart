@@ -117,7 +117,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                           if (Application()
                                   .supportedLanguagesName[indexSelect]
                                   .contains('*') &&
-                              Shared.getInstance().timeFree == null) {
+                              Shared.getInstance().buyFree == false) {
                             await showBottomSheet(
                                 context: context, child: DialogBuypro());
                             return;

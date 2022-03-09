@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:base_flutter_framework/components/widget/indicator.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,30 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
     super.dispose();
   }
 
+  String getBannerAdId() {
+    if (Platform.isIOS) {
+      return "ca-app-pub-2543065673224553/7741906412";
+    } else {
+      return "ca-app-pub-2678670127764045/5878160402";
+    }
+  }
+
+  String getBannerMediumId() {
+    if (Platform.isIOS) {
+      return "ca-app-pub-2543065673224553/5658668559";
+    } else {
+      return "ca-app-pub-2678670127764045/6620396434";
+    }
+  }
+
+  String getNativeAds() {
+    if (Platform.isIOS) {
+      return "ca-app-pub-2543065673224553/6728686571";
+    } else {
+      return "ca-app-pub-2678670127764045/5498886451";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (child != null) return child!;
@@ -68,7 +94,7 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
           child: child,
         );
       },
-      unitId: MobileAds.nativeAdTestUnitId,
+      unitId: getNativeAds(),
       buildLayout: widget.type == 2
           ? mediumAdTemplateLayoutBuilder
           : adBannerLayoutBuilder,

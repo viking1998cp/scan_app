@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/repository/detect_repository.dart';
 import 'package:base_flutter_framework/repository/natural_image_repository.dart';
@@ -72,11 +74,18 @@ class NaturalWorldController extends GetxController {
     contentUrl: 'http://foo.com/bar.html',
     nonPersonalizedAds: true,
   );
+  String getFullNativeAds() {
+    if (Platform.isIOS) {
+      return "ca-app-pub-2543065673224553/5479222074";
+    } else {
+      return "ca-app-pub-2678670127764045/8312752059";
+    }
+  }
 
   InterstitialAd? interstitialAd;
   void createInterstitialAd() {
     InterstitialAd.load(
-        adUnitId: InterstitialAd.testAdUnitId,
+        adUnitId: getFullNativeAds(),
         request: request,
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {

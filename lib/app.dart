@@ -14,6 +14,7 @@ import 'utils/constants/colors.dart';
 class App extends StatelessWidget {
   AppTranslationsDelegate? _newLocaleDelegate =
       AppTranslationsDelegate(newLocale: new Locale('en', 'English'));
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:base_flutter_framework/components/widget/image.dart';
+import 'package:base_flutter_framework/components/widget/indicator.dart';
 import 'package:base_flutter_framework/resource/resource_image.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/color.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 class DialogBuypro extends StatefulWidget {
   const DialogBuypro({Key? key}) : super(key: key);
@@ -22,8 +25,9 @@ class DialogBuypro extends StatefulWidget {
 class _DialogBuyproState extends State<DialogBuypro> {
   final Set<String> _productLists = Platform.isAndroid
       ? <String>{
-          'product_1',
-          'product_2',
+          'subs_after_try',
+          'subs_vip_month',
+          'subs_vip_year',
         }
       : <String>{
           "test2",
@@ -44,6 +48,7 @@ class _DialogBuyproState extends State<DialogBuypro> {
   void initState() {
     initPlatformState();
     getProductRepository(kIds: _productLists);
+    _getOld();
     super.initState();
   }
 
@@ -60,6 +65,20 @@ class _DialogBuyproState extends State<DialogBuypro> {
     } catch (_e) {
       return [];
     }
+  }
+
+  GooglePlayPurchaseDetails? oldPurchaseDetails;
+
+  Future<GooglePlayPurchaseDetails?> _getOld() async {
+    final InAppPurchaseAndroidPlatformAddition androidAddition = _inAppPurchase
+        .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+    QueryPurchaseDetailsResponse oldPurchaseDetailsQuery =
+        await androidAddition.queryPastPurchases();
+    oldPurchaseDetailsQuery.pastPurchases.forEach((element) {
+      oldPurchaseDetails = element;
+    });
+
+    return oldPurchaseDetails;
   }
 
   Widget itemInfoBuyPro(
@@ -119,7 +138,7 @@ class _DialogBuyproState extends State<DialogBuypro> {
 
   Widget buttonBuyPro() {
     return products.isEmpty
-        ? SizedBox()
+        ? indicator()
         : Row(
             children: [
               Expanded(
@@ -128,11 +147,30 @@ class _DialogBuyproState extends State<DialogBuypro> {
                           context, TransactionKey.oneYear),
                       onClick: () async {
                         PurchaseParam purchaseParam = PurchaseParam(
-                          productDetails: products[0],
+                          productDetails: products[2],
                         );
 
-                        await _inAppPurchase.buyNonConsumable(
-                            purchaseParam: purchaseParam);
+                        await _inAppPurchase
+                            .buyNonConsumable(purchaseParam: purchaseParam)
+                            .then((value) {
+                          if (value = true) {
+                            Shared.instance!.saveBuy(buy: true);
+                            int timeBuy =
+                                (((DateTime.now().millisecondsSinceEpoch) /
+                                            1000) +
+                                        31536000)
+                                    .round();
+
+                            SKToast.success(
+                                title: TransactionKey.loadLanguage(
+                                        context, TransactionKey.notification)
+                                    .toUpperCase(),
+                                message: TransactionKey.loadLanguage(
+                                        context, TransactionKey.successBuyPro) +
+                                    fromTimeHourToString(timeBuy),
+                                context: context);
+                          }
+                        });
                       })),
               SizedBox(
                 width: 8,
@@ -148,7 +186,25 @@ class _DialogBuyproState extends State<DialogBuypro> {
 
                         await _inAppPurchase
                             .buyNonConsumable(purchaseParam: purchaseParam)
-                            .then((value) {});
+                            .then((value) {
+                          if (value = true) {
+                            Shared.instance!.saveBuy(buy: true);
+                            int timeBuy =
+                                (((DateTime.now().millisecondsSinceEpoch) /
+                                            1000) +
+                                        2592000)
+                                    .round();
+
+                            SKToast.success(
+                                title: TransactionKey.loadLanguage(
+                                        context, TransactionKey.notification)
+                                    .toUpperCase(),
+                                message: TransactionKey.loadLanguage(
+                                        context, TransactionKey.successBuyPro) +
+                                    fromTimeHourToString(timeBuy),
+                                context: context);
+                          }
+                        });
                       })),
               SizedBox(
                 width: 8,
@@ -158,29 +214,29 @@ class _DialogBuyproState extends State<DialogBuypro> {
                       title: TransactionKey.loadLanguage(
                           context, TransactionKey.tryFree),
                       onClick: () async {
-                        if (Shared.getInstance().timeFree == null &&
-                            Shared.getInstance().buyFree == false) {
-                          int time =
-                              ((DateTime.now().millisecondsSinceEpoch / 1000) +
+                        PurchaseParam purchaseParam = PurchaseParam(
+                          productDetails: products[0],
+                        );
+
+                        await _inAppPurchase
+                            .buyNonConsumable(purchaseParam: purchaseParam)
+                            .then((value) {
+                          Shared.instance!.saveBuy(buy: true);
+                          int timeBuy =
+                              (((DateTime.now().millisecondsSinceEpoch) /
+                                          1000) +
                                       259200)
                                   .round();
-                          Shared.getInstance().saveBuyFree(buy: true);
-                          Shared.getInstance().saveTimeFree(time: time);
+
                           SKToast.success(
-                              context: context,
                               title: TransactionKey.loadLanguage(
-                                  context, TransactionKey.notification),
+                                      context, TransactionKey.notification)
+                                  .toUpperCase(),
                               message: TransactionKey.loadLanguage(
                                       context, TransactionKey.successBuyPro) +
-                                  " " +
-                                  fromTimeHourToString(time));
-                          setState(() {});
-                        } else {
-                          SKToast.showToastBottom(
-                              messager: TransactionKey.loadLanguage(
-                                  context, TransactionKey.noBuyPro),
+                                  fromTimeHourToString(timeBuy),
                               context: context);
-                        }
+                        });
                       })),
             ],
           );

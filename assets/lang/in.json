@@ -48,5 +48,19 @@
     "rate_your_experience": "Rate your experience",
     "title_rate": "I am a program working vary hard to give you the best free application. Your 5-star review is worth more than all money.\nPlease write a nice review in Google Play to encourage me?",
     "thank_ratting": "THANKS FOR RATING!",
-    "rate_in_store": "RATE OUR APP IN PLAY STORE"
+    "rate_in_store": "RATE OUR APP IN PLAY STORE",
+    "title_buy_pro": "If you enjoy this App, please contribute what you can, and unlock Picture ID+",
+    "buy_pro_1_title": "Ad-Free Experience",
+    "buy_pro_1_content": "You won\\'t see any banner, native ads or suggested post",
+    "buy_pro_2_title": "Pro Features",
+    "buy_pro_2_content": "Provides many features favorably, fast support",
+    "buy_pro_3_title": "Support Development",
+    "buy_pro_3_content": "It allows us to continue developing Picture ID. It means the world us. Thanks!",
+    "1_year": "1 YEAR",
+    "1_month": "1 MONTH",
+    "try_free": "TRY VIP FREE",
+    "try_free_detail": "Try vip free: 3-days free trial then month subscription",
+    "recurring_billing": "Recurring billing. Cancel anytime on Google PlayStore",
+    "title_no_buy_pro": "You have purchased the trial package before, please upgrade to other vip upgrades to use the full function of the application",
+    "success_buy_pro": "Congratulations, you have successfully extended your vip package until the date:"
 }

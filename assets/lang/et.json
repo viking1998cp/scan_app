@@ -48,5 +48,19 @@
     "rate_your_experience": "Hinnake oma kogemusi",
     "title_rate": "Olen programm, mis töötab kõvasti, et pakkuda teile parimat tasuta rakendust. Teie viietärniline arvustus on väärt rohkem kui kogu raha.\nPalun kirjutage Google Playsse hea arvustus, et mind julgustada?",
     "thank_ratting": "AITÄH HINNE EEST!",
-    "rate_in_store": "HINNAKE MEIE RAKENDUST PLAY POES"
+    "rate_in_store": "HINNAKE MEIE RAKENDUST PLAY POES",
+    "title_buy_pro": "Kui teile see rakendus meeldib, andke oma panus ja avage pildi ID+",
+    "buy_pro_1_title": "Reklaamivaba kogemus",
+    "buy_pro_1_content": "Te ei näe bännereid, omareklaame ega soovitatud postitusi",
+    "buy_pro_2_title": "Pro funktsioonid",
+    "buy_pro_2_content": "Pakub palju funktsioone soodsalt, kiiret tuge",
+    "buy_pro_3_title": "Toetage arengut",
+    "buy_pro_3_content": "See võimaldab meil jätkata Picture ID arendamist. See tähendab maailma meid. Aitäh!",
+    "1_year": "1 AASTA",
+    "1_month": "1 KUU",
+    "try_free": "PROOVI VIPI TASUTA",
+    "try_free_detail": "Proovige VIP tasuta: 3-päevane tasuta prooviperiood, seejärel kuu tellimus",
+    "recurring_billing": "Korduv arveldamine. Loobuge Google PlayStore\\'is igal ajal",
+    "title_no_buy_pro": "Olete proovipaketi varem ostnud. Rakenduse kõigi funktsioonide kasutamiseks minge üle teistele VIP versiooniuuendustele",
+    "success_buy_pro": "Õnnitleme, olete oma vip-paketti edukalt pikendanud kuupäevani:"
 }

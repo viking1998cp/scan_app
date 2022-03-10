@@ -48,5 +48,19 @@
     "rate_your_experience": "Értékelje tapasztalatait",
     "title_rate": "Én egy olyan program vagyok, amely keményen dolgozik, hogy a legjobb ingyenes alkalmazást nyújtsam. Az Ön 5 csillagos értékelése minden pénznél többet ér.\nKérem, írjon egy jó véleményt a Google Playen, hogy bátorítson?",
     "thank_ratting": "KÖSZÖNJÜK AZ ÉRTÉKELÉST!",
-    "rate_in_store": "Értékelje ALKALMAZÁSUNKAT A PLAY ÁRUHÁZBAN"
+    "rate_in_store": "Értékelje ALKALMAZÁSUNKAT A PLAY ÁRUHÁZBAN",
+    "title_buy_pro": "Ha tetszik ez az alkalmazás, kérjük, járuljon hozzá, amit tud, és oldja fel a Picture ID+ zárolását",
+    "buy_pro_1_title": "Hirdetésmentes élmény",
+    "buy_pro_1_content": "Nem fog megjelenni semmilyen szalaghirdetés, natív hirdetés vagy javasolt bejegyzés",
+    "buy_pro_2_title": "Pro jellemzők",
+    "buy_pro_2_content": "Számos szolgáltatást biztosít előnyösen, gyors támogatást",
+    "buy_pro_3_title": "Fejlesztés támogatása",
+    "buy_pro_3_content": "Lehetővé teszi számunkra, hogy folytassuk a Picture ID fejlesztését. A világot jelenti mi. Kösz!",
+    "1_year": "1 ÉV",
+    "1_month": "1 HÓNAP",
+    "try_free": "PRÓBÁLJA KI INGYENES VIP-t",
+    "try_free_detail": "Próbálja ki a VIP ingyenes szolgáltatást: 3 napos ingyenes próbaverzió, majd havi előfizetés",
+    "recurring_billing": "Ismétlődő számlázás. Bármikor lemondhatja a Google Play Store-ban",
+    "title_no_buy_pro": "Korábban vásárolta meg a próbacsomagot, kérjük frissítsen más VIP frissítésekre, hogy az alkalmazás teljes funkcióját kihasználhassa",
+    "success_buy_pro": "Gratulálunk, sikeresen meghosszabbítottad VIP csomagodat a következő időpontig:"
 }

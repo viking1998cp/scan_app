@@ -48,5 +48,19 @@
     "rate_your_experience": "Novērtējiet savu pieredzi",
     "title_rate": "Es esmu programma, kas smagi strādā, lai sniegtu jums vislabāko bezmaksas lietojumprogrammu. Jūsu 5 zvaigžņu atsauksme ir vērtīgāka par visu naudu.\nLūdzu, uzrakstiet jauku atsauksmi pakalpojumā Google Play, lai mani iedrošinātu?",
     "thank_ratting": "PALDIES PAR VĒRTĒJUMU!",
-    "rate_in_store": "NOVĒRTĒJIET MŪSU LIETOTNI PLAY VEIKALĀ"
+    "rate_in_store": "NOVĒRTĒJIET MŪSU LIETOTNI PLAY VEIKALĀ",
+    "title_buy_pro": "Ja jums patīk šī lietotne, lūdzu, sniedziet savu ieguldījumu un atbloķējiet attēla ID+",
+    "buy_pro_1_title": "Pieredze bez reklāmām",
+    "buy_pro_1_content": "Jūs neredzēsit nevienu reklāmkarogu, vietējās reklāmas vai ieteikto ziņu",
+    "buy_pro_2_title": "Pro funkcijas",
+    "buy_pro_2_content": "Nodrošina daudzas funkcijas labvēlīgi, ātru atbalstu",
+    "buy_pro_3_title": "Atbalsts attīstībai",
+    "buy_pro_3_content": "Tas ļauj mums turpināt izstrādāt Picture ID. Tas nozīmē pasauli mums. Paldies!",
+    "1_year": "1 GADS",
+    "1_month": "1 MĒNESIS",
+    "try_free": "IZMĒĢINIET VIP BEZMAKSAS",
+    "try_free_detail": "Izmēģiniet VIP bezmaksas: 3 dienu bezmaksas izmēģinājuma periods, pēc tam mēneša abonements",
+    "recurring_billing": "Atkārtoti norēķini. Atcelt jebkurā laikā pakalpojumā Google PlayStore",
+    "title_no_buy_pro": "Jūs jau esat iegādājies izmēģinājuma pakotni, lūdzu, jauniniet uz citiem VIP jauninājumiem, lai izmantotu visas lietojumprogrammas funkcijas",
+    "success_buy_pro": "Apsveicam, jūs esat veiksmīgi pagarinājis savu VIP paketi līdz datumam:"
 }

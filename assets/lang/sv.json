@@ -48,5 +48,19 @@
     "rate_your_experience": "Betygsätt din upplevelse",
     "title_rate": "Jag är ett program som arbetar hårt för att ge dig den bästa gratisapplikationen. Din 5-stjärniga recension är värd mer än alla pengar.\nSkriv en trevlig recension i Google Play för att uppmuntra mig?",
     "thank_ratting": "TACK FÖR BETYGET!",
-    "rate_in_store": "BETYCKA VÅR APP I PLAY STORE"
+    "rate_in_store": "BETYCKA VÅR APP I PLAY STORE",
+    "title_buy_pro": "Om du gillar den här appen, vänligen bidra med vad du kan och lås upp Picture ID+",
+    "buy_pro_1_title": "Annonsfri upplevelse",
+    "buy_pro_1_content": "Du kommer inte att se några banner, inbyggda annonser eller föreslagna inlägg",
+    "buy_pro_2_title": "Pro-funktioner",
+    "buy_pro_2_content": "Ger många funktioner fördelaktigt, snabbt stöd",
+    "buy_pro_3_title": "Stöd utveckling",
+    "buy_pro_3_content": "Det tillåter oss att fortsätta utveckla Picture ID. Det betyder världen oss. Tack!",
+    "1_year": "1 ÅR",
+    "1_month": "1 MÅNAD",
+    "try_free": "PROVA VIP GRATIS",
+    "try_free_detail": "Prova VIP gratis: 3-dagars gratis provperiod sedan månadsabonnemang",
+    "recurring_billing": "Återkommande fakturering. Avbryt när som helst på Google PlayStore",
+    "title_no_buy_pro": "Du har köpt provpaketet tidigare, uppgradera till andra VIP-uppgraderingar för att använda applikationens fulla funktion",
+    "success_buy_pro": "Grattis, du har framgångsrikt förlängt ditt VIP-paket till datumet:"
 }

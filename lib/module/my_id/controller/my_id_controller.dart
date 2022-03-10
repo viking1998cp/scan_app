@@ -45,6 +45,9 @@ class MyIdController extends GetxController {
 
   InterstitialAd? interstitialAd;
   void createInterstitialAd() {
+    if (Shared.getInstance().buyFree == true) {
+      return;
+    }
     InterstitialAd.load(
         adUnitId: getFullNativeAds(),
         request: request,

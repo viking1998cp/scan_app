@@ -48,5 +48,19 @@
     "rate_your_experience": "Arvioi kokemuksesi",
     "title_rate": "Olen ohjelma, joka työskentelee kovasti tarjotakseen sinulle parhaan ilmaisen sovelluksen. 5 tähden arvostelusi on arvokkaampi kuin kaikki raha.\nKirjoita hyvä arvostelu Google Playhin rohkaistaksesi minua?",
     "thank_ratting": "KIITOS arviosta!",
-    "rate_in_store": "ARVOSTELE SOVELLEMME PLAY KAUPASSA"
+    "rate_in_store": "ARVOSTELE SOVELLEMME PLAY KAUPASSA",
+    "title_buy_pro": "Jos pidät tästä sovelluksesta, anna mitä voit ja avaa Picture ID+",
+    "buy_pro_1_title": "Kokemus ilman mainoksia",
+    "buy_pro_1_content": "Et näe bannereita, natiivimainoksia tai ehdotettuja julkaisuja",
+    "buy_pro_2_title": "Pro-ominaisuudet",
+    "buy_pro_2_content": "Tarjoaa monia ominaisuuksia edullisesti, nopean tuen",
+    "buy_pro_3_title": "Tukea kehitystä",
+    "buy_pro_3_content": "Sen avulla voimme jatkaa Picture ID:n kehittämistä. Se tarkoittaa maailmaa meitä. Kiitos!",
+    "1_year": "1 VUOSI",
+    "1_month": "1 KUUKAUSI",
+    "try_free": "KOKEILE VIPiä ILMAISEKSI",
+    "try_free_detail": "Kokeile VIP-maksua: 3 päivän ilmainen kokeilujakso ja kuukauden tilaus",
+    "recurring_billing": "Toistuva laskutus. Peruuta milloin tahansa Google PlayStoressa",
+    "title_no_buy_pro": "Olet ostanut kokeilupaketin aiemmin, päivitä muihin VIP-päivityksiin käyttääksesi sovelluksen kaikkia toimintoja",
+    "success_buy_pro": "Onnittelut, olet onnistuneesti pidentänyt vip-pakettiasi päivämäärään:"
 }

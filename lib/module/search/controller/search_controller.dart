@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:base_flutter_framework/base/base_controller.dart';
 import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/core/models/search.dart';
 import 'package:base_flutter_framework/repository/detect_repository.dart';
 import 'package:base_flutter_framework/repository/search_repository.dart';
+import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -69,11 +72,21 @@ class SearchController extends BaseController {
     contentUrl: 'http://foo.com/bar.html',
     nonPersonalizedAds: true,
   );
+  String getFullNativeAds() {
+    if (Platform.isIOS) {
+      return "ca-app-pub-2543065673224553/5479222074";
+    } else {
+      return "ca-app-pub-2678670127764045/8312752059";
+    }
+  }
 
   InterstitialAd? interstitialAd;
   void createInterstitialAd() {
+    if (Shared.getInstance().buyFree == true) {
+      return;
+    }
     InterstitialAd.load(
-        adUnitId: InterstitialAd.testAdUnitId,
+        adUnitId: getFullNativeAds(),
         request: request,
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {

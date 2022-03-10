@@ -57,8 +57,14 @@ class _DialogBuyproState extends State<DialogBuypro> {
   Future<List<ProductDetails>> getProductRepository(
       {required Set<String> kIds}) async {
     try {
-      ProductDetailsResponse response =
-          await InAppPurchase.instance.queryProductDetails(kIds);
+      ProductDetailsResponse response = await InAppPurchase.instance
+          .queryProductDetails(kIds)
+          .whenComplete(() {
+        setState(() {});
+        Timer(Duration(seconds: 1), () {
+          setState(() {});
+        });
+      });
       products = response.productDetails;
       setState(() {});
       return products;

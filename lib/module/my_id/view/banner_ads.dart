@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:base_flutter_framework/components/widget/indicator.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
+import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
 
@@ -85,35 +86,38 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
   @override
   Widget build(BuildContext context) {
     if (child != null) return child!;
-    return NativeAd(
-      controller: _nativeAdController,
-      height: widget.type == 1 ? 60 : 250,
-      builder: (context, child) {
-        return Material(
-          elevation: 8,
-          child: child,
-        );
-      },
-      unitId: getNativeAds(),
-      buildLayout: widget.type == 2
-          ? mediumAdTemplateLayoutBuilder
-          : adBannerLayoutBuilder,
-      loading: Container(
-        width: DimensCommon.sizeWidth(context: context),
-        height: widget.type == 1 ? 60 : 250,
-        child: indicator(),
-      ),
-      error: Container(),
-      icon: AdImageView(padding: EdgeInsets.only(left: 6)),
-      headline: AdTextView(style: TextStyle(color: Colors.black)),
-      advertiser: AdTextView(style: TextStyle(color: Colors.black)),
-      body: AdTextView(style: TextStyle(color: Colors.black), maxLines: 1),
-      button: AdButtonView(
-        margin: EdgeInsets.only(left: 6, right: 6),
-        textStyle: TextStyle(color: Colors.green, fontSize: 14),
-        elevation: 18,
-        elevationColor: Colors.amber,
-      ),
-    );
+    return Shared.getInstance().buyFree == true
+        ? SizedBox()
+        : NativeAd(
+            controller: _nativeAdController,
+            height: widget.type == 1 ? 60 : 250,
+            builder: (context, child) {
+              return Material(
+                elevation: 8,
+                child: child,
+              );
+            },
+            unitId: getNativeAds(),
+            buildLayout: widget.type == 2
+                ? mediumAdTemplateLayoutBuilder
+                : adBannerLayoutBuilder,
+            loading: Container(
+              width: DimensCommon.sizeWidth(context: context),
+              height: widget.type == 1 ? 60 : 250,
+              child: indicator(),
+            ),
+            error: Container(),
+            icon: AdImageView(padding: EdgeInsets.only(left: 6)),
+            headline: AdTextView(style: TextStyle(color: Colors.black)),
+            advertiser: AdTextView(style: TextStyle(color: Colors.black)),
+            body:
+                AdTextView(style: TextStyle(color: Colors.black), maxLines: 1),
+            button: AdButtonView(
+              margin: EdgeInsets.only(left: 6, right: 6),
+              textStyle: TextStyle(color: Colors.green, fontSize: 14),
+              elevation: 18,
+              elevationColor: Colors.amber,
+            ),
+          );
   }
 }

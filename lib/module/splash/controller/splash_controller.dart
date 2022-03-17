@@ -16,6 +16,8 @@ import 'package:intl/intl.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
+//import for InAppPurchaseStoreKitPlatformAddition
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 
 class SplashController extends GetxController {
   SplashController();
@@ -64,46 +66,55 @@ class SplashController extends GetxController {
           'subs_vip_year',
         }
       : <String>{
-          "test2",
-          'product_1',
-          'product_2',
-          'product_3',
-          'product_5',
-          'product_6',
-          'product_7'
+          "subs_after_try",
+          'subs_vip_month',
+          'subs_vip_year',
         };
 
   Future<void> getProductRepository({required Set<String> kIds}) async {
     ProductDetailsResponse response =
         await InAppPurchase.instance.queryProductDetails(kIds);
 
-    _getOld();
+    await _getOld();
   }
 
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   GooglePlayPurchaseDetails? oldPurchaseDetails;
-  Future<GooglePlayPurchaseDetails?> _getOld() async {
+  var _purchasesIos;
+  Future<void> _getOld() async {
     _inAppPurchase.isAvailable();
-    final InAppPurchaseAndroidPlatformAddition androidAddition = _inAppPurchase
-        .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-    QueryPurchaseDetailsResponse oldPurchaseDetailsQuery =
-        await androidAddition.queryPastPurchases();
-    oldPurchaseDetailsQuery.pastPurchases.forEach((element) async {
-      oldPurchaseDetails = element;
-    });
-    if (oldPurchaseDetails != null) {
-      bool st = await SubcsriptionStatus.subscriptionStatus(
-          sku: oldPurchaseDetails!.billingClientPurchase.sku,
-          duration: Duration(days: 1),
-          grace: Duration(days: 0));
-      if (st) {
-        await Shared.getInstance().saveBuy(buy: true);
-      } else {
-        await Shared.getInstance().saveBuy(buy: false);
+    if (Platform.isAndroid) {
+      final InAppPurchaseAndroidPlatformAddition androidAddition =
+          _inAppPurchase
+              .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+      QueryPurchaseDetailsResponse oldPurchaseDetailsQuery =
+          await androidAddition.queryPastPurchases();
+      oldPurchaseDetailsQuery.pastPurchases.forEach((element) async {
+        oldPurchaseDetails = element;
+      });
+      if (oldPurchaseDetails != null) {
+        bool st = await SubcsriptionStatus.subscriptionStatus(
+            sku: oldPurchaseDetails!.billingClientPurchase.sku,
+            duration: Duration(days: 1),
+            grace: Duration(days: 0));
+        if (st) {
+          await Shared.getInstance().saveBuy(buy: true);
+        } else {
+          await Shared.getInstance().saveBuy(buy: false);
+        }
       }
+    } else {
+      InAppPurchaseStoreKitPlatformAddition iosPlatformAddition = _inAppPurchase
+          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      iosPlatformAddition.showPriceConsentIfNeeded().then((value) {
+        print(value);
+      });
+      // QueryPurchaseDetailsResponse oldPurchaseDetailsQuery =
+      //     await iosPlatformAddition.obs.oldPurchaseDetailsQuery.pastPurchases
+      //         .forEach((element) async {
+      //   oldPurchaseDetails = element;
+      // });
     }
-
-    return oldPurchaseDetails;
   }
 
   String dateTimeToString7(DateTime dateTime) {

@@ -30,13 +30,9 @@ class _DialogBuyproState extends State<DialogBuypro> {
           'subs_vip_year',
         }
       : <String>{
-          "test2",
-          'product_1',
-          'product_2',
-          'product_3',
-          'product_5',
-          'product_6',
-          'product_7'
+          "subs_after_try",
+          'subs_vip_month',
+          'subs_vip_year',
         };
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -48,43 +44,25 @@ class _DialogBuyproState extends State<DialogBuypro> {
   void initState() {
     initPlatformState();
     getProductRepository(kIds: _productLists);
-    _getOld();
+
     super.initState();
   }
 
+  ProductDetailsResponse? response;
   List<ProductDetails> products = [];
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   Future<List<ProductDetails>> getProductRepository(
       {required Set<String> kIds}) async {
     try {
-      ProductDetailsResponse response = await InAppPurchase.instance
-          .queryProductDetails(kIds)
-          .whenComplete(() {
-        setState(() {});
-        Timer(Duration(seconds: 1), () {
-          setState(() {});
-        });
+      response = await InAppPurchase.instance.queryProductDetails(kIds);
+
+      setState(() {
+        products = response!.productDetails;
       });
-      products = response.productDetails;
-      setState(() {});
       return products;
     } catch (_e) {
       return [];
     }
-  }
-
-  GooglePlayPurchaseDetails? oldPurchaseDetails;
-
-  Future<GooglePlayPurchaseDetails?> _getOld() async {
-    final InAppPurchaseAndroidPlatformAddition androidAddition = _inAppPurchase
-        .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-    QueryPurchaseDetailsResponse oldPurchaseDetailsQuery =
-        await androidAddition.queryPastPurchases();
-    oldPurchaseDetailsQuery.pastPurchases.forEach((element) {
-      oldPurchaseDetails = element;
-    });
-
-    return oldPurchaseDetails;
   }
 
   Widget itemInfoBuyPro(
@@ -200,15 +178,16 @@ class _DialogBuyproState extends State<DialogBuypro> {
                                             1000) +
                                         2592000)
                                     .round();
-
-                            SKToast.success(
-                                title: TransactionKey.loadLanguage(
-                                        context, TransactionKey.notification)
-                                    .toUpperCase(),
-                                message: TransactionKey.loadLanguage(
-                                        context, TransactionKey.successBuyPro) +
-                                    fromTimeHourToString(timeBuy),
-                                context: context);
+                            if (Platform.isAndroid) {
+                              SKToast.success(
+                                  title: TransactionKey.loadLanguage(
+                                          context, TransactionKey.notification)
+                                      .toUpperCase(),
+                                  message: TransactionKey.loadLanguage(context,
+                                          TransactionKey.successBuyPro) +
+                                      fromTimeHourToString(timeBuy),
+                                  context: context);
+                            }
                           }
                         });
                       })),

@@ -11,6 +11,8 @@ import 'package:base_flutter_framework/module/scan_image/view/camera_widget.dart
 import 'package:base_flutter_framework/module/scan_image/view/classifier.dart';
 import 'package:base_flutter_framework/module/scan_image/view/list_image_lable.dart';
 import 'package:base_flutter_framework/repository/detect_repository.dart';
+import 'package:base_flutter_framework/translations/transaction_key.dart';
+import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:ui' as ui;
 import 'package:path/path.dart';
@@ -56,6 +58,11 @@ class ScanController extends BaseController {
   static const double THRESHOLD = 0.5;
 
   Future<void> captureImage() async {
+    if (Platform.isIOS && indexMode.value == 4) {
+      SKToast.showToastBottom(
+          messager: "No support platform", context: Get.context);
+      return;
+    }
     imageFile = await cameraController!.takePicture();
     cameraController!.resumePreview().then((value) {
       ScanController.cameraController!.setFlashMode(FlashMode.off);

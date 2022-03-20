@@ -36,18 +36,34 @@ extension SettingScreenChildren on SettingScreen {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text('Pick a color theme!'),
+                      title: Text(
+                          TransactionKey.loadLanguage(
+                              context, TransactionKey.pickColorTheme),
+                          style: TextAppStyle().styleTitle()),
                       content: SingleChildScrollView(
                         child: ColorPicker(
                           pickerColor: Theme.of(context).primaryColor,
                           onColorChanged: (color) async {
                             colorNow = color.value;
                           },
+                          pickerAreaHeightPercent: 0.5,
+                          enableAlpha: true,
+                          displayThumbColor: true,
+                          paletteType: PaletteType.hslWithHue,
+                          labelTypes: [],
+                          pickerAreaBorderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(2),
+                              topRight: Radius.circular(2)),
+                          hexInputController: TextEditingController(),
+                          portraitOnly: true,
                         ),
                       ),
                       actions: <Widget>[
                         ElevatedButton(
-                          child: const Text('Change'),
+                          child: Text(
+                              TransactionKey.loadLanguage(
+                                  context, TransactionKey.changeTheme),
+                              style: TextAppStyle().styleTitle()),
                           onPressed: () {
                             Shared.getInstance()
                                 .saveColorPrimary(color: colorNow);
@@ -55,6 +71,8 @@ extension SettingScreenChildren on SettingScreen {
                             Get.changeTheme(ThemeConfig.lightTheme);
                             Navigator.pop(context);
                           },
+                          style: ElevatedButton.styleFrom(
+                              primary: Theme.of(context).primaryColor),
                         ),
                       ],
                     );
@@ -73,11 +91,13 @@ extension SettingScreenChildren on SettingScreen {
               icon: ResourceIcon.iconFeedback,
               onclick: () async {
                 await controller.getInfoApp();
-                launch('mailto:abc@gmail.com?subject=Report problem&body='
+                launch('mailto:oreecaa@gmail.com?subject=Report problem&body='
                     'App name: ${controller.appName.value}\n'
                     'Package name: ${controller.packageName.value}\n'
                     'Version: ${controller.version.value}\n'
                     'Build number: ${controller.version.value}\n');
+                SKToast.showToastBottom(
+                    messager: controller.appName.value, context: context);
               },
               title: TransactionKey.loadLanguage(
                 context,
@@ -120,7 +140,13 @@ extension SettingScreenChildren on SettingScreen {
             ItemMenu(
               icon: ResourceIcon.iconShare,
               onclick: () {
-                Share.share('check out my website https://example.com');
+                Share.share(
+                    TransactionKey.loadLanguage(context, TransactionKey.contentRecommendedApp) +
+                        (Platform.isAndroid
+                            ? "https://play.google.com/store/apps/details?id=${controller.packageName.value}"
+                            : "https://apps.apple.com/app/id1614593199"),
+                    subject: TransactionKey.loadLanguage(
+                        context, TransactionKey.titleRecommendedApp));
               },
               title: TransactionKey.loadLanguage(
                 context,
@@ -146,8 +172,9 @@ extension SettingScreenChildren on SettingScreen {
             ItemMenu(
               icon: ResourceIcon.iconMoreApp,
               onclick: () {
-                launch(
-                    "https://play.google.com/store/apps/developer?id=Next+Vision+Limited");
+                launch(Platform.isAndroid
+                    ? "https://play.google.com/store/apps/developer?id=Gamaa"
+                    : "https://apps.apple.com/developer/id1614593199");
               },
               title: TransactionKey.loadLanguage(
                 context,
@@ -271,17 +298,10 @@ extension SettingScreenChildren on SettingScreen {
                                         onTap: () {
                                           Get.back();
                                           controller.ratingIndex.value = 0.0;
-                                          try {
-                                            launch("market://details?id=" +
-                                                "com.ss.android.ugc.trill");
-                                          } on PlatformException catch (e) {
-                                            launch(
-                                                "https://play.google.com/store/apps/details?id=" +
-                                                    "com.ss.android.ugc.trill");
-                                          } finally {
-                                            launch(
-                                                "https://play.google.com/store/apps/details?id=" +
-                                                    "com.ss.android.ugc.trill");
+                                          if (Platform.isAndroid) {
+                                            launch("https://play.google.com/store/apps/details?id=${controller.packageName.value}");
+                                          } else {
+                                            launch("https://apps.apple.com/app/id1614593199");
                                           }
                                         },
                                         child: Container(
@@ -337,7 +357,8 @@ extension SettingScreenChildren on SettingScreen {
                           width: 8,
                         ),
                         Text(
-                          'Rate your experience',
+                          TransactionKey.loadLanguage(
+                              context, TransactionKey.rateYourExperience),
                           style: TextAppStyle().styleTextTag(),
                         ),
                       ],
@@ -358,7 +379,8 @@ extension SettingScreenChildren on SettingScreen {
                     child: Column(
                   children: [
                     Text(
-                      'Let me know what I should to change...?',
+                      TransactionKey.loadLanguage(
+                          context, TransactionKey.letMeKnow),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           fontSize: 15, fontWeight: FontWeight.w400),
@@ -384,7 +406,7 @@ extension SettingScreenChildren on SettingScreen {
                         ),
                         InkWell(
                           onTap: () {
-                            launch('mailto:abc@gmail.com');
+                            launch('mailto:oreecaa@gmail.com');
                           },
                           child: Text(
                             TransactionKey.loadLanguage(

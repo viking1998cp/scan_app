@@ -41,13 +41,18 @@
     "favorite": "Favorit",
     "match": "Match",
     "name": "Navn",
+    "msg_turnon_netword": "Bạn cần bật mạng để thiết lập cấu hình trong lần đầu khởi chạy",
+    "title_recommended_app": "Hej, en fantastisk Scan App anbefalet til dig!",
+    "content_recommended_app": "Jeg fandt en super Scan app til at opdage planter, hund, fugl, svampe... den er virkelig fantastisk!!! Download det fra",
     "input_name_match": "Input navn Match",
     "search_results_will_be_save": "Søgeresultater gemmes på fanen samling",
     "score": "Score",
     "select_language": "Vælg sproget",
     "rate_your_experience": "Bedøm din oplevelse",
+    "let_me_know_what_i_should_to_change": "Fortæl mig, hvad jeg skal ændre...?",
     "title_rate": "Jeg er et program, der arbejder hårdt for at give dig den bedste gratis applikation. Din 5-stjernede anmeldelse er mere værd end alle pengene.\nSkriv venligst en god anmeldelse i Google Play for at opmuntre mig?",
     "thank_ratting": "TAK FOR BEdømmelsen!",
+    "pick_color_theme": "Vælg et farvetema!",
     "rate_in_store": "VURDER VORES APP I PLAY STORE",
     "title_buy_pro": "Hvis du kan lide denne app, bedes du bidrage med, hvad du kan, og låse op for Picture ID+",
     "buy_pro_1_title": "Annoncefri oplevelse",
@@ -60,7 +65,7 @@
     "1_month": "1 MÅNED",
     "try_free": "PRØV VIP GRATIS",
     "try_free_detail": "Prøv vip gratis: 3-dages gratis prøveperiode og derefter månedsabonnement",
-    "recurring_billing": "Tilbagevendende fakturering. Annuller når som helst i Google PlayStore",
+    "recurring_billing": "Tilbagevendende fakturering. Annuller når som helst i butikken",
     "title_no_buy_pro": "Du har købt prøvepakken før, opgrader venligst til andre VIP-opgraderinger for at bruge applikationens fulde funktion",
-    "success_buy_pro": "Tillykke, du har med succes forlænget din VIP-pakke indtil datoen:"
+    "success_buy_pro": "Tillykke, du har med succes forlænget din VIP-pakke til datoen:"
 }

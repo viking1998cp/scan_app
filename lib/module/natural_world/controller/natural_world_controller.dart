@@ -20,11 +20,16 @@ class NaturalWorldController extends GetxController {
   RxInt showAds = 1.obs;
 
   Future<void> getListNameItem() async {
-    if (listNameItem.isEmpty)
-      _naturalRepository.getNameNatural().then((value) async {
+    if (listNameItem.isEmpty) {
+      await _naturalRepository.getNameNatural().then((value) async {
         listNameItem.value = value;
         await getData();
       });
+    }
+    await _naturalRepository.getNameNatural().then((value) async {
+      listNameItem.value = value;
+      await getData();
+    });
   }
 
   Future<void> getData() async {

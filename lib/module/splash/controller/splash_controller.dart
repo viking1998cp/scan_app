@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:base_flutter_framework/base/di.dart';
 import 'package:base_flutter_framework/components/menu/menu_page.dart/menu_page_common.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
+import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'dart:io';
@@ -16,11 +17,13 @@ import 'package:intl/intl.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
+
 //import for InAppPurchaseStoreKitPlatformAddition
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 
 class SplashController extends GetxController {
   SplashController();
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -34,8 +37,8 @@ class SplashController extends GetxController {
 
       if (!modelMush) {
         SKToast.showToastBottom(
-            messager:
-                "Bạn cần bật mạng để thiết lập cấu hình trong lần đầu khởi chạy",
+            messager: TransactionKey.loadLanguage(
+                Get.context!, TransactionKey.msgTurnOnNetword),
             context: Get.context);
         await GoogleMlKit.vision
             .remoteModelManager()
@@ -48,8 +51,8 @@ class SplashController extends GetxController {
           .isModelDownloaded('bird');
       if (!birlModel) {
         SKToast.showToastBottom(
-            messager:
-                "Bạn cần bật mạng để thiết lập cấu hình trong lần đầu khởi chạy",
+            messager: TransactionKey.loadLanguage(
+                Get.context!, TransactionKey.msgTurnOnNetword),
             context: Get.context);
         await GoogleMlKit.vision
             .remoteModelManager()
@@ -72,15 +75,13 @@ class SplashController extends GetxController {
         };
 
   Future<void> getProductRepository({required Set<String> kIds}) async {
-    ProductDetailsResponse response =
-        await InAppPurchase.instance.queryProductDetails(kIds);
-
+    await InAppPurchase.instance.queryProductDetails(kIds);
     await _getOld();
   }
 
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   GooglePlayPurchaseDetails? oldPurchaseDetails;
-  var _purchasesIos;
+
   Future<void> _getOld() async {
     _inAppPurchase.isAvailable();
     if (Platform.isAndroid) {
@@ -106,9 +107,7 @@ class SplashController extends GetxController {
     } else {
       InAppPurchaseStoreKitPlatformAddition iosPlatformAddition = _inAppPurchase
           .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
-      iosPlatformAddition.showPriceConsentIfNeeded().then((value) {
-        print(value);
-      });
+      iosPlatformAddition.showPriceConsentIfNeeded().then((value) {});
       // QueryPurchaseDetailsResponse oldPurchaseDetailsQuery =
       //     await iosPlatformAddition.obs.oldPurchaseDetailsQuery.pastPurchases
       //         .forEach((element) async {

@@ -15,6 +15,7 @@ class TransactionKey {
   static final String naturalImage = 'natural_image';
   static final String beautyImageOfWorld = 'beauty_image_of_world';
   static final String match = 'match';
+  static final String pickColorTheme = "pick_color_theme";
 
   static final String trending = 'trending';
   static final String subTrending = 'trending_data';
@@ -35,6 +36,7 @@ class TransactionKey {
   static final String moreApp = 'more_app';
   static final String selectLayout = "select_layout";
   static final String selectCancel = "cancel";
+  static final String letMeKnow = "let_me_know_what_i_should_to_change";
   static final String selectOk = "ok";
   static final String notification = "notification";
   static final String takePhoto = "take_photo";
@@ -64,7 +66,10 @@ class TransactionKey {
   static final String oneMonth = "1_month";
   static final String tryFree = "try_free";
   static final String tryFreeDetail = "try_free_detail";
+  static final String msgTurnOnNetword = "msg_turnon_netword";
   static final String recurringBilling = "recurring_billing";
+  static final String titleRecommendedApp = "title_recommended_app";
+  static final String contentRecommendedApp = "content_recommended_app";
   //detect language
   static final String picture = 'picture';
   static final String notFound = 'not_found';

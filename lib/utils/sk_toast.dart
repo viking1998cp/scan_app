@@ -39,7 +39,7 @@ class SKToast {
     ).show();
   }
 
-  static void info(
+  static void msg(
       {required String title,
       required String message,
       required String textOk,
@@ -55,40 +55,13 @@ class SKToast {
       btnOkColor: Theme.of(context).primaryColor,
       btnCancelColor: Theme.of(context).primaryColor,
       showCloseIcon: true,
-      dialogType: DialogType.INFO,
+      dialogType: DialogType.NO_HEADER,
       title: title,
       desc: message,
       btnOkOnPress: () {
         if (okClik != null) {
           okClik();
         }
-      },
-      btnCancelOnPress: () {},
-      buttonsTextStyle:
-          TextStyle(fontSize: DimensCommon.fontSizeSmall, color: Colors.white),
-      // btnOkIcon: Icons.close,
-    ).show();
-  }
-
-  static void warning({
-    required String title,
-    required String message,
-    required String textOk,
-    required BuildContext context,
-    Function? okClick,
-  }) {
-    AwesomeDialog(
-      context: context,
-      useRootNavigator: true,
-      headerAnimationLoop: false,
-      btnOkText: textOk,
-
-      dialogType: DialogType.WARNING,
-      // animType: AnimType.TOPSLIDE,
-      title: title,
-      desc: message,
-      btnOkOnPress: () {
-        if (okClick != null) okClick();
       },
       btnCancelOnPress: () {},
       buttonsTextStyle:

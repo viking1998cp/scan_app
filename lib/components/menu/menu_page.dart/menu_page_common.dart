@@ -41,7 +41,7 @@ class _MenuPageCommonState extends State<MenuPageCommon> {
       });
       return false;
     } else {
-      SKToast.info(
+      SKToast.msg(
           context: context,
           message: TransactionKey.loadLanguage(
               context, TransactionKey.titleCloseApp),

@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<bool> _willPop() async {
     BuildContext context = Get.context!;
-    SKToast.info(
+    SKToast.msg(
         context: context,
         message:
             TransactionKey.loadLanguage(context, TransactionKey.titleCloseApp),

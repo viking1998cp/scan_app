@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:base_flutter_framework/utils/shared.dart';
-
 class ResultDetect {
   String? type;
   String? title;

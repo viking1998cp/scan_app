@@ -1,4 +1,3 @@
-import 'package:base_flutter_framework/components/widget/tool_bar.dart';
 import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/string.dart';

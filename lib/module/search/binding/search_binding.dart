@@ -1,4 +1,3 @@
-import 'package:base_flutter_framework/base/base_binding.dart';
 import 'package:base_flutter_framework/module/search/controller/search_controller.dart';
 import 'package:get/get.dart';
 

@@ -8,13 +8,11 @@ import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/scan_image/controller/scan_image_controller.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
-import 'package:base_flutter_framework/utils/color.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

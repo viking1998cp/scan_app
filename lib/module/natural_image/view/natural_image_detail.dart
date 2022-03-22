@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:base_flutter_framework/components/widget/dialog/select_language.dart';
 import 'package:base_flutter_framework/module/natural_image/controller/natural_image_controller.dart';
 import 'package:base_flutter_framework/utils/navigator.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'package:wallpaper/wallpaper.dart';

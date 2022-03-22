@@ -1,5 +1,4 @@
 import 'package:base_flutter_framework/translations/transaction_key.dart';
-import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:flutter/material.dart';
 
 class InputMatchNameDialog extends StatefulWidget {

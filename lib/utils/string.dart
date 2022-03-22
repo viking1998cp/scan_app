@@ -30,28 +30,6 @@ class StringCommon {
     return maxString;
   }
 
-  static List<String> naturalHtml(String body) {
-    List<String> html = body.split("<li>");
-    List<String> name = [];
-    for (var i = 1; i < html.length; i++) {
-      int index = html[i].indexOf("</a>", 0);
-      String data1 = html[i].substring(0, index + 4);
-      String data = StringCommon.formatHtml(data1);
-      name.add(data);
-    }
-
-    List<String> nameFormatIssue = [];
-    name.forEach((element) {
-      if (element.length != 1) {
-        nameFormatIssue.add(element);
-      }
-    });
-    if (nameFormatIssue.length > 50) {
-      return nameFormatIssue.sublist(0, 49);
-    }
-    return nameFormatIssue;
-  }
-
   static double fontSizeScaleFlowLeght(String name,
       {required double leghtScale, required double fontDefault}) {
     return fontDefault - ((name.length / leghtScale) * 2);

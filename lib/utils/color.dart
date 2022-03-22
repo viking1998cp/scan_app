@@ -1,8 +1,5 @@
 import 'package:base_flutter_framework/utils/hex_color.dart';
-import 'package:base_flutter_framework/utils/hive_database/hive_dao.dart';
-import 'package:base_flutter_framework/utils/hive_database/hive_database.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 
 class ColorCommon {
   //Color app common

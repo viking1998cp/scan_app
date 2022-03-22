@@ -10,14 +10,13 @@ import 'package:base_flutter_framework/module/scan_image/view/web_view.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
-import 'package:base_flutter_framework/utils/color.dart';
-import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:scroll_navigation/scroll_navigation.dart';
+
 part 'my_id_screen.children.dart';
 
 class MyIdScreen extends GetView<MyIdController> {

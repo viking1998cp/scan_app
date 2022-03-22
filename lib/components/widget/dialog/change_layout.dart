@@ -1,12 +1,8 @@
-import 'package:base_flutter_framework/components/widget/image.dart';
-import 'package:base_flutter_framework/resource/resource_image.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
-
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/constants/colors.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

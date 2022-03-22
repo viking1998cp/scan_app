@@ -13,7 +13,7 @@ class NaturalWorldController extends GetxController {
   NaturalRepository _naturalRepository = new NaturalRepository();
   DetectRepository _detectRepository = new DetectRepository();
   RxInt page = 1.obs;
-  RxInt perPgae = 15.obs;
+  RxInt perPgae = 25.obs;
   RxBool loading = true.obs;
   RxBool limit = false.obs;
 
@@ -21,8 +21,8 @@ class NaturalWorldController extends GetxController {
 
   Future<void> getListNameItem() async {
     if (listNameItem.isEmpty)
-      _naturalRepository.getNameNatural().then((value) async {
-        listNameItem.value = value;
+      _naturalRepository.getNameNatural().listen((totalItem) async{
+        listNameItem.value = totalItem;
         await getData();
       });
   }
@@ -43,7 +43,7 @@ class NaturalWorldController extends GetxController {
       String name = loadMoreData[i].replaceAll(" ", "_");
       ResultDetect item =
           await _detectRepository.getResultByName(name, locace: "en");
-      if (!item.title!.contains("Not found")) {
+      if (!item.title!.contains("Not found") && item.thumbnail != null) {
         resultLoadMore.add(item);
       }
     }

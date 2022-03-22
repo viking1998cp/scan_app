@@ -2,22 +2,19 @@ import 'package:base_flutter_framework/components/widget/favorite_button.dart';
 import 'package:base_flutter_framework/components/widget/image.dart';
 import 'package:base_flutter_framework/components/widget/load_more/load_more_grid_view.dart';
 import 'package:base_flutter_framework/core/models/result_detect.dart';
-import 'package:base_flutter_framework/icons/app_icons.dart';
 import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/natural_world/controller/natural_world_controller.dart';
 import 'package:base_flutter_framework/module/scan_image/view/web_view.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
-import 'package:base_flutter_framework/services/service.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/constants/colors.dart';
-import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/string.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+
 part 'natural_world_screen.children.dart';
 
 class NaturalWorldScreen extends GetView<NaturalWorldController> {

@@ -1,9 +1,6 @@
 import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
-import 'package:base_flutter_framework/utils/color.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import 'load_more_indicator.dart';

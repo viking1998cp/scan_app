@@ -1,14 +1,11 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 
 import 'package:base_flutter_framework/core/models/result_detect.dart';
-import 'package:base_flutter_framework/core/models/user.dart';
-import 'package:base_flutter_framework/translations/app_translations.dart';
 import 'package:base_flutter_framework/translations/application.dart';
 import 'package:base_flutter_framework/utils/string.dart';
-
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:ui' as ui;
 
 //cache file
 class Shared {

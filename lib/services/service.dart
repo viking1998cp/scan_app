@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 
@@ -38,8 +39,6 @@ class ServiceCommon {
             return handler.next(request);
           },
           onError: (e, handler) async {
-            if (e.response?.statusCode == 404) {
-              response = null;
               handler.resolve(Response(
                   requestOptions: RequestOptions(path: host + api),
                   data: {
@@ -51,8 +50,6 @@ class ServiceCommon {
                     "uri":
                         "/vi.wikipedia.org/v1/page/summary/Amanita_muscaria_flavivolvata"
                   }));
-              return;
-            }
           },
         ),
       );
@@ -62,13 +59,9 @@ class ServiceCommon {
             queryParameters: param,
           )
           .catchError((_e) {});
-      if (response!.statusCode == 404) {
-        return null;
-      }
-      return response;
-    } on DioError catch (e) {
-      return null;
+    } on DioError catch (_) {
     }
+    return response;
   }
 
   Future<Response?> postHttp({
@@ -77,7 +70,6 @@ class ServiceCommon {
     required String host,
   }) async {
     jsonEncode(param);
-    Dio dio = getApiClient();
     Response? response;
     try {
       Dio dio = new Dio(_baseOptionsFromToken());
@@ -91,8 +83,6 @@ class ServiceCommon {
             return handler.next(request);
           },
           onError: (e, handler) async {
-            if (e.response?.statusCode == 404) {
-              response = null;
               handler.resolve(Response(
                   requestOptions: RequestOptions(path: host + api),
                   data: {
@@ -104,8 +94,6 @@ class ServiceCommon {
                     "uri":
                         "/vi.wikipedia.org/v1/page/summary/Amanita_muscaria_flavivolvata"
                   }));
-              return;
-            }
           },
         ),
       );
@@ -115,14 +103,7 @@ class ServiceCommon {
             data: param,
           )
           .catchError((_e) {});
-      if (response!.statusCode == 404) {
-        return null;
-      }
-      return response;
-    } on DioError catch (e) {
-      return null;
-    }
-
+    } on DioError catch (_) {}
     return response;
   }
 
@@ -208,8 +189,8 @@ class ServiceCommon {
   BaseOptions _baseOptionsFromToken() {
     return BaseOptions(
         receiveDataWhenStatusError: true,
-        connectTimeout: 600000, // 60 seconds
-        receiveTimeout: 600000, // 60 seconds
+        connectTimeout: 15000, // 60 seconds
+        receiveTimeout: 15000, // 60 seconds
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',

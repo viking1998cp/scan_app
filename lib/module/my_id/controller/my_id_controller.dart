@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:base_flutter_framework/core/models/result_detect.dart';
-import 'package:base_flutter_framework/repository/detect_repository.dart';
-import 'package:base_flutter_framework/repository/natural_image_repository.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';

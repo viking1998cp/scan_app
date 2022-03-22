@@ -1,7 +1,5 @@
 import 'package:base_flutter_framework/components/widget/favorite_button.dart';
-import 'package:base_flutter_framework/components/widget/image.dart';
 import 'package:base_flutter_framework/core/models/result_detect.dart';
-import 'package:base_flutter_framework/icons/app_icons.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:base_flutter_framework/utils/string.dart';
 import 'package:flutter/material.dart';

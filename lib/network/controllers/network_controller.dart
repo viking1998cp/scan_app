@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import '../constants/constants.dart';
 
 class NetworkController extends GetxController {

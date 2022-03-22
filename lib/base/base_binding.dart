@@ -1,6 +1,7 @@
-import 'package:base_flutter_framework/components/controllers/network_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
+import '../network/controllers/network_controller.dart';
 
 class BaseBinding implements Bindings {
   @override

@@ -1,18 +1,15 @@
 import 'package:base_flutter_framework/module/home/binding/home_binding.dart';
 import 'package:base_flutter_framework/module/home/view/home_screen.dart';
 import 'package:base_flutter_framework/module/my_id/binding/my_id_binding.dart';
-import 'package:base_flutter_framework/module/my_id/controller/my_id_controller.dart';
 import 'package:base_flutter_framework/module/my_id/view/my_id_screen.dart';
 import 'package:base_flutter_framework/module/natural_image/binding/natural_image_binding.dart';
 import 'package:base_flutter_framework/module/natural_image/view/natural_image_screen.dart';
-
 import 'package:base_flutter_framework/module/natural_world/binding/natural_world_binding.dart';
 import 'package:base_flutter_framework/module/natural_world/view/natural_world_screen.dart';
 import 'package:base_flutter_framework/module/scan_image/binding/scan_image_binding.dart';
 import 'package:base_flutter_framework/module/scan_image/view/list_image_lable.dart';
 import 'package:base_flutter_framework/module/scan_image/view/scan_image_screen.dart';
 import 'package:base_flutter_framework/module/search/binding/search_binding.dart';
-import 'package:base_flutter_framework/module/search/controller/search_controller.dart';
 import 'package:base_flutter_framework/module/search/view/search_screen.dart';
 import 'package:base_flutter_framework/module/setting/binding/setting_binding.dart';
 import 'package:base_flutter_framework/module/setting/view/setting_screen.dart';

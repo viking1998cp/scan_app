@@ -1,25 +1,21 @@
 import 'dart:async';
-import 'package:base_flutter_framework/base/di.dart';
+import 'dart:io';
+
 import 'package:base_flutter_framework/components/menu/menu_page.dart/menu_page_common.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
-import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:get/get.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:intl/intl.dart';
 import 'package:native_admob_flutter/native_admob_flutter.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:intl/intl.dart';
-import 'package:in_app_purchase_android/billing_client_wrappers.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
-
-//import for InAppPurchaseStoreKitPlatformAddition
-import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 
 class SplashController extends GetxController {
   SplashController();

@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:base_flutter_framework/core/models/wallpaper.dart';
 import 'package:base_flutter_framework/repository/wallpaper_repository.dart';
-import 'package:base_flutter_framework/resource/resource_icon.dart';
-import 'package:base_flutter_framework/utils/constants/colors.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 

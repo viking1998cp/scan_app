@@ -3,28 +3,23 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:math';
+import 'dart:ui' as ui;
+
 import 'package:base_flutter_framework/base/base_controller.dart';
 import 'package:base_flutter_framework/core/models/result_detect.dart';
-import 'package:base_flutter_framework/main.dart';
 import 'package:base_flutter_framework/module/scan_image/view/camera_widget.dart';
 import 'package:base_flutter_framework/module/scan_image/view/classifier.dart';
 import 'package:base_flutter_framework/module/scan_image/view/list_image_lable.dart';
 import 'package:base_flutter_framework/repository/detect_repository.dart';
-import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
-import 'package:sqflite/sqflite.dart';
-import 'dart:ui' as ui;
-import 'package:path/path.dart';
 import 'package:camera/camera.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image/image.dart' as img;
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ScanController extends BaseController {

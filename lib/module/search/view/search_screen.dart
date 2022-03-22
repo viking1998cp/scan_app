@@ -4,8 +4,6 @@ import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/scan_image/view/web_view.dart';
 import 'package:base_flutter_framework/module/search/controller/search_controller.dart';
-import 'package:base_flutter_framework/resource/resource_icon.dart';
-import 'package:base_flutter_framework/services/service.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/string.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
@@ -14,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+
 part 'search_screen.children.dart';
 
 class SearchScreen extends GetView<SearchController> {

@@ -2,12 +2,7 @@ import 'dart:io';
 
 import 'package:base_flutter_framework/repository/detect_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-
-import 'package:sqflite/sqflite.dart';
-
-import 'package:path/path.dart';
 
 class Classifier {
   Future<List<ImageLabel>> predict(

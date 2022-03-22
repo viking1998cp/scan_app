@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:base_flutter_framework/app.dart';
 import 'package:base_flutter_framework/components/widget/dialog/buy_pro.dart';
 import 'package:base_flutter_framework/components/widget/indicator.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
-import 'package:base_flutter_framework/translations/app_translations.dart';
 import 'package:base_flutter_framework/translations/application.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
-import 'package:base_flutter_framework/utils/navigator.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/style/text_style.dart';
 import 'package:flutter/material.dart';

@@ -1,11 +1,7 @@
 import 'dart:convert';
 
-import 'package:async/async.dart';
-import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/core/models/wallpaper.dart';
-import 'package:base_flutter_framework/services/service.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
-import 'package:base_flutter_framework/utils/string.dart';
 import 'package:dio/dio.dart';
 
 

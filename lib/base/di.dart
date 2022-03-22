@@ -5,11 +5,8 @@ import 'package:base_flutter_framework/module/scan_image/controller/scan_image_c
 import 'package:base_flutter_framework/module/search/controller/search_controller.dart';
 import 'package:base_flutter_framework/module/setting/controller/setting_controller.dart';
 import 'package:base_flutter_framework/services/storage_service.dart';
-import 'package:base_flutter_framework/utils/hive_database/hive_database.dart';
-import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 
 class DependencyInjection {
   static Future<void> init() async {

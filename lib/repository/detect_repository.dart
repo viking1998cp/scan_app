@@ -1,12 +1,12 @@
 import 'dart:collection';
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:base_flutter_framework/core/models/plant_detect.dart';
 import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/services/service.dart';
 import 'package:dio/dio.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'dart:ui' as ui;
 
 class DetectRepository {
   Future<List<ResultDetect>> getListResult(

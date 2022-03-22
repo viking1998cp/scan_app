@@ -1,12 +1,8 @@
 import 'dart:convert';
 
-import 'package:base_flutter_framework/core/models/result_detect.dart';
 import 'package:base_flutter_framework/core/models/search.dart';
 import 'package:base_flutter_framework/services/service.dart';
-import 'package:base_flutter_framework/utils/string.dart';
 import 'package:dio/dio.dart';
-
-import 'detect_repository.dart';
 
 class SearchRepository {
   SearchDataModel? _searchDataModel;

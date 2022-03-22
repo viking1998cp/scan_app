@@ -9,11 +9,8 @@ import 'package:base_flutter_framework/utils/color.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
-import 'package:in_app_purchase_android/billing_client_wrappers.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 
 class DialogBuypro extends StatefulWidget {
   const DialogBuypro({Key? key}) : super(key: key);

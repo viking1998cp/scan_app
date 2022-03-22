@@ -6,9 +6,7 @@ import 'package:base_flutter_framework/components/widget/image.dart';
 import 'package:base_flutter_framework/icons/app_icons.dart';
 import 'package:base_flutter_framework/icons/my_flutter_app_icons.dart';
 import 'package:base_flutter_framework/module/my_id/controller/my_id_controller.dart';
-
 import 'package:base_flutter_framework/module/scan_image/controller/scan_image_controller.dart';
-import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'package:flutter/material.dart';

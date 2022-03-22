@@ -7,7 +7,6 @@ import 'package:base_flutter_framework/module/natural_world/view/natural_world_s
 import 'package:base_flutter_framework/module/scan_image/controller/scan_image_controller.dart';
 import 'package:base_flutter_framework/module/scan_image/view/scan_image_screen.dart';
 import 'package:base_flutter_framework/module/setting/view/setting_screen.dart';
-import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

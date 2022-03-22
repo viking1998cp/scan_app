@@ -1,12 +1,11 @@
-import 'package:base_flutter_framework/components/bindings/network_binding.dart';
 import 'package:base_flutter_framework/module/my_id/controller/my_id_controller.dart';
 import 'package:base_flutter_framework/module/natural_world/controller/natural_world_controller.dart';
-
 import 'package:base_flutter_framework/module/scan_image/controller/scan_image_controller.dart';
 import 'package:base_flutter_framework/module/setting/controller/setting_controller.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
-import 'package:base_flutter_framework/utils/navigator.dart';
 import 'package:get/get.dart';
+
+import '../network/bindings/network_binding.dart';
 
 class AppBinding extends Bindings {
   @override

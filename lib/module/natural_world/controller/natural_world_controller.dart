@@ -21,8 +21,8 @@ class NaturalWorldController extends GetxController {
 
   Future<void> getListNameItem() async {
     if (listNameItem.isEmpty)
-      _naturalRepository.getNameNatural().listen((totalItem) async{
-        listNameItem.value = totalItem;
+      _naturalRepository.getNameNatural().then((value) async {
+        listNameItem.value = value;
         await getData();
       });
   }

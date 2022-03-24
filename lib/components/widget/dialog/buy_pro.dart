@@ -102,7 +102,9 @@ class _DialogBuyproState extends State<DialogBuypro> {
   }
 
   Widget itemButtonBuyPro(
-      {required String title, required Function() onClick}) {
+      {required String title,
+      required String price,
+      required Function() onClick}) {
     return InkWell(
       onTap: () {
         onClick();
@@ -112,9 +114,23 @@ class _DialogBuyproState extends State<DialogBuypro> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Colors.orange, borderRadius: BorderRadius.circular(8)),
-        child: Text(
-          title,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              price,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
+            ),
+          ],
         ),
       ),
     );
@@ -127,6 +143,7 @@ class _DialogBuyproState extends State<DialogBuypro> {
             children: [
               Expanded(
                   child: itemButtonBuyPro(
+                      price: products[2].price,
                       title: TransactionKey.loadLanguage(
                           context, TransactionKey.oneYear),
                       onClick: () async {
@@ -161,6 +178,7 @@ class _DialogBuyproState extends State<DialogBuypro> {
               ),
               Expanded(
                   child: itemButtonBuyPro(
+                      price: products[1].price,
                       title: TransactionKey.loadLanguage(
                           context, TransactionKey.oneMonth),
                       onClick: () async {
@@ -196,6 +214,7 @@ class _DialogBuyproState extends State<DialogBuypro> {
               ),
               Expanded(
                   child: itemButtonBuyPro(
+                      price: products[0].price,
                       title: TransactionKey.loadLanguage(
                           context, TransactionKey.tryFree),
                       onClick: () async {

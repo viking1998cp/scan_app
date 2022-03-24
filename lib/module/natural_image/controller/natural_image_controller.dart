@@ -24,7 +24,7 @@ class NaturalImageController extends GetxController {
   RxInt currentIndex = 0.obs;
 
   RxInt page = 1.obs;
-  RxInt perPage = 15.obs;
+  RxInt perPage = 2.obs;
   RxBool loading = true.obs;
   RxBool limit = false.obs;
 
@@ -83,7 +83,11 @@ class NaturalImageController extends GetxController {
   Future<void> loadData() async {
     wallpaperIdsLoad.addAll(wallpaperIdsName.sublist(
         page.value * perPage.value, (page.value + 1) * perPage.value));
+
     page++;
+    if (wallpaperIdsLoad.length < 10) {
+      loadData();
+    }
   }
 
   Future<void> getUrls({required String wallpaperName}) async {

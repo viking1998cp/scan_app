@@ -13,7 +13,7 @@ class NaturalWorldController extends GetxController {
   NaturalRepository _naturalRepository = new NaturalRepository();
   DetectRepository _detectRepository = new DetectRepository();
   RxInt page = 1.obs;
-  RxInt perPgae = 15.obs;
+  RxInt perPgae = 2.obs;
   RxBool loading = true.obs;
   RxBool limit = false.obs;
 
@@ -26,10 +26,6 @@ class NaturalWorldController extends GetxController {
         await getData();
       });
     }
-    await _naturalRepository.getNameNatural().then((value) async {
-      listNameItem.value = value;
-      await getData();
-    });
   }
 
   Future<void> getData() async {
@@ -55,6 +51,9 @@ class NaturalWorldController extends GetxController {
     page++;
 
     listItemResult.addAll(resultLoadMore);
+    if (listItemResult.length < 15) {
+      getData();
+    }
   }
 
   List<ResultDetect> getDataImage() {

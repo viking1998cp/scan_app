@@ -23,7 +23,16 @@
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<string>NO</string>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-2543065673224553~4537158572</string>
+	<string>ca-app-pub-4971959505787142~4868813560</string>
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+		<key>SKAdNetworkIdentifier</key>
+		<string>cstr6suwn9.skadnetwork</string>
+		</dict>
+	</array>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>https</string>

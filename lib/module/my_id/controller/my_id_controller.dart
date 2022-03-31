@@ -6,11 +6,10 @@ import 'package:base_flutter_framework/repository/natural_image_repository.dart'
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart' as native;
 
 class MyIdController extends GetxController {
   /// Init the controller
-  final bannerController = native.BannerAdController();
+
   RxInt showAds = 1.obs;
   RxList<ResultDetect> favoriteList = <ResultDetect>[].obs;
   RxList<ResultDetect> collectionList = <ResultDetect>[].obs;

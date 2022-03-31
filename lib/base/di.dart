@@ -9,7 +9,6 @@ import 'package:base_flutter_framework/utils/hive_database/hive_database.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 
 class DependencyInjection {
   static Future<void> init() async {

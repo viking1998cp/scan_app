@@ -50,7 +50,12 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
   @override
   void initState() {
     super.initState();
-    _nativeAdController.load();
+    _nativeAdController.onEvent.listen((event) {
+      print(event);
+    });
+    _nativeAdController.load().then((value) {
+      print(value);
+    });
   }
 
   @override
@@ -59,25 +64,9 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
     super.dispose();
   }
 
-  String getBannerAdId() {
-    if (Platform.isIOS) {
-      return "ca-app-pub-2543065673224553/7741906412";
-    } else {
-      return "ca-app-pub-2678670127764045/5878160402";
-    }
-  }
-
-  String getBannerMediumId() {
-    if (Platform.isIOS) {
-      return "ca-app-pub-2543065673224553/5658668559";
-    } else {
-      return "ca-app-pub-2678670127764045/6620396434";
-    }
-  }
-
   String getNativeAds() {
     if (Platform.isIOS) {
-      return "ca-app-pub-2543065673224553/6728686571";
+      return "ca-app-pub-4971959505787142/1859506847";
     } else {
       return "ca-app-pub-2678670127764045/5498886451";
     }
@@ -110,6 +99,7 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
             icon: AdImageView(padding: EdgeInsets.only(left: 6)),
             headline: AdTextView(style: TextStyle(color: Colors.black)),
             advertiser: AdTextView(style: TextStyle(color: Colors.black)),
+            loadTimeout: Duration(seconds: 60),
             body:
                 AdTextView(style: TextStyle(color: Colors.black), maxLines: 1),
             button: AdButtonView(

@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:intl/intl.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
+
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
@@ -156,13 +156,13 @@ class SplashController extends GetxController {
       await Shared.getInstance()
           .saveDeviceId(deviceId: iosDeviceInfo.identifierForVendor!);
       // This is my device id. Ad yours here
-      MobileAds.setTestDeviceIds([iosDeviceInfo.identifierForVendor!]);
+
       return iosDeviceInfo.identifierForVendor; // unique ID on iOS
     } else {
       var androidDeviceInfo = await deviceInfo.androidInfo;
       await Shared.getInstance()
           .saveDeviceId(deviceId: androidDeviceInfo.androidId!);
-      MobileAds.setTestDeviceIds([androidDeviceInfo.androidId!]);
+
       return androidDeviceInfo.androidId; // unique ID on Android
     }
   }

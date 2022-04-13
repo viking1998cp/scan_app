@@ -10,6 +10,7 @@ import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:base_flutter_framework/utils/sk_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
 import 'package:in_app_purchase_android/billing_client_wrappers.dart';
@@ -40,11 +41,25 @@ class _DialogBuyproState extends State<DialogBuypro> {
     _inAppPurchase.isAvailable();
   }
 
+  int select = 0;
+
   @override
   void initState() {
     initPlatformState();
     getProductRepository(kIds: _productLists);
-
+    _inAppPurchase.purchaseStream.any((element) {
+      if (element[0].status == PurchaseStatus.purchased) {
+        if (select == 0) {
+          showDialogSuccess(31536000);
+        } else if (select == 1) {
+          showDialogSuccess(2592000);
+        } else {
+          showDialogSuccess(259200);
+        }
+      }
+      print(element);
+      return true;
+    });
     super.initState();
   }
 
@@ -136,6 +151,20 @@ class _DialogBuyproState extends State<DialogBuypro> {
     );
   }
 
+  void showDialogSuccess(int time) {
+    Shared.instance!.saveBuy(buy: true);
+    int timeBuy =
+        (((DateTime.now().millisecondsSinceEpoch) / 1000) + time).round();
+
+    SKToast.success(
+        title: TransactionKey.loadLanguage(context, TransactionKey.notification)
+            .toUpperCase(),
+        message:
+            TransactionKey.loadLanguage(context, TransactionKey.successBuyPro) +
+                fromTimeHourToString(timeBuy),
+        context: context);
+  }
+
   Widget buttonBuyPro() {
     return products.isEmpty
         ? indicator()
@@ -150,28 +179,10 @@ class _DialogBuyproState extends State<DialogBuypro> {
                         PurchaseParam purchaseParam = PurchaseParam(
                           productDetails: products[2],
                         );
-
-                        await _inAppPurchase
+                        select = 0;
+                        bool buySucces = await _inAppPurchase
                             .buyNonConsumable(purchaseParam: purchaseParam)
-                            .then((value) {
-                          if (value = true) {
-                            Shared.instance!.saveBuy(buy: true);
-                            int timeBuy =
-                                (((DateTime.now().millisecondsSinceEpoch) /
-                                            1000) +
-                                        31536000)
-                                    .round();
-
-                            SKToast.success(
-                                title: TransactionKey.loadLanguage(
-                                        context, TransactionKey.notification)
-                                    .toUpperCase(),
-                                message: TransactionKey.loadLanguage(
-                                        context, TransactionKey.successBuyPro) +
-                                    fromTimeHourToString(timeBuy),
-                                context: context);
-                          }
-                        });
+                            .whenComplete(() => null);
                       })),
               SizedBox(
                 width: 8,
@@ -185,29 +196,10 @@ class _DialogBuyproState extends State<DialogBuypro> {
                         PurchaseParam purchaseParam = PurchaseParam(
                           productDetails: products[1],
                         );
-
+                        select = 1;
                         await _inAppPurchase
                             .buyNonConsumable(purchaseParam: purchaseParam)
-                            .then((value) {
-                          if (value = true) {
-                            Shared.instance!.saveBuy(buy: true);
-                            int timeBuy =
-                                (((DateTime.now().millisecondsSinceEpoch) /
-                                            1000) +
-                                        2592000)
-                                    .round();
-                            if (Platform.isAndroid) {
-                              SKToast.success(
-                                  title: TransactionKey.loadLanguage(
-                                          context, TransactionKey.notification)
-                                      .toUpperCase(),
-                                  message: TransactionKey.loadLanguage(context,
-                                          TransactionKey.successBuyPro) +
-                                      fromTimeHourToString(timeBuy),
-                                  context: context);
-                            }
-                          }
-                        });
+                            .then((value) {});
                       })),
               SizedBox(
                 width: 8,
@@ -221,26 +213,10 @@ class _DialogBuyproState extends State<DialogBuypro> {
                         PurchaseParam purchaseParam = PurchaseParam(
                           productDetails: products[0],
                         );
-
+                        select = 2;
                         await _inAppPurchase
                             .buyNonConsumable(purchaseParam: purchaseParam)
-                            .then((value) {
-                          Shared.instance!.saveBuy(buy: true);
-                          int timeBuy =
-                              (((DateTime.now().millisecondsSinceEpoch) /
-                                          1000) +
-                                      259200)
-                                  .round();
-
-                          SKToast.success(
-                              title: TransactionKey.loadLanguage(
-                                      context, TransactionKey.notification)
-                                  .toUpperCase(),
-                              message: TransactionKey.loadLanguage(
-                                      context, TransactionKey.successBuyPro) +
-                                  fromTimeHourToString(timeBuy),
-                              context: context);
-                        });
+                            .then((value) {});
                       })),
             ],
           );

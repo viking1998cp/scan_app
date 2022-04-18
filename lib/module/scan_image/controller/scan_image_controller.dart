@@ -34,6 +34,8 @@ class ScanController extends BaseController {
   RxInt indexMode = 1.obs;
   RxInt updateCamera = 0.obs;
 
+  RxBool isLoading = true.obs;
+
   ScanController();
   RxList<ResultDetect> dataDetect = <ResultDetect>[].obs;
   late Classifier _classifier = new Classifier();
@@ -79,7 +81,7 @@ class ScanController extends BaseController {
         ],
         androidUiSettings: AndroidUiSettings(
             toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
+            toolbarColor: Theme.of(Get.context!).primaryColor,
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
@@ -176,5 +178,9 @@ class ScanController extends BaseController {
       return results[0].row[0];
     else
       return "";
+  }
+
+  void changeLoading(bool load) {
+    this.isLoading.value = load;
   }
 }

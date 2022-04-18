@@ -22,6 +22,7 @@ class _WebviewResultState extends State<WebviewResult> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: false,
         titleSpacing: 8,
@@ -30,38 +31,41 @@ class _WebviewResultState extends State<WebviewResult> {
           style: TextAppStyle().textToolBar(),
         ),
       ),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            child: Column(
-              children: [
-                Expanded(
-                    child: WebView(
-                  initialUrl: widget.url,
-                  onPageFinished: (finish) {
-                    setState(() {
-                      isLoading = false;
-                    });
-                  },
-                )),
-                Shared.getInstance().layout == 2
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          BannerAdsCustom.getInstanceBottomAds(context),
-                        ],
-                      )
-                    : SizedBox()
-              ],
+      body: Container(
+        color: Colors.red,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              child: Column(
+                children: [
+                  Expanded(
+                      child: WebView(
+                    initialUrl: widget.url,
+                    onPageFinished: (finish) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                  )),
+                  Shared.getInstance().layout == 2
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            BannerAdsCustom.getInstanceBottomAds(context),
+                          ],
+                        )
+                      : SizedBox()
+                ],
+              ),
             ),
-          ),
-          isLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Stack(),
-        ],
+            isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Stack(),
+          ],
+        ),
       ),
     ));
   }

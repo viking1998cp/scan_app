@@ -13,6 +13,6 @@ public class EmbeddingV1Activity extends FlutterActivity {
     FlutterEngine flutterEngine = new FlutterEngine(this);
     ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
     com.ko2ic.imagedownloader.ImageDownloaderPlugin.registerWith(shimPluginRegistry.registrarFor("com.ko2ic.imagedownloader.ImageDownloaderPlugin"));
-  
+    
   }
 }

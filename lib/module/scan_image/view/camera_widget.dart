@@ -39,10 +39,16 @@ class CameraWidget extends StatefulWidget {
 class CameraWidgetState extends State<CameraWidget> {
   int cameraIndex = 0;
   static bool flashOn = false;
+  bool showCamera = false;
 
   void initState() {
     super.initState();
     setUpCamera();
+    Timer(Duration(milliseconds: 500), () {
+      setState(() {
+        showCamera = true;
+      });
+    });
   }
 
   @override
@@ -67,15 +73,20 @@ class CameraWidgetState extends State<CameraWidget> {
   }
 
   Widget captureCamera(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      height: (Shared.getInstance().layout == 1 && widget.showButtonCap != true)
-          ? DimensCommon.sizeHeight(context: context) - 112
-          : DimensCommon.sizeHeight(context: context),
-      child: AspectRatio(
-          aspectRatio: ScanController.cameraController!.value.aspectRatio,
-          child: CameraPreview(ScanController.cameraController!)),
-    );
+    return ScanController.cameraController == null
+        ? Container(
+            color: Colors.black,
+          )
+        : Container(
+            color: Colors.black,
+            height: (Shared.getInstance().layout == 1 &&
+                    widget.showButtonCap != true)
+                ? DimensCommon.sizeHeight(context: context) - 112
+                : DimensCommon.sizeHeight(context: context),
+            child: AspectRatio(
+                aspectRatio: ScanController.cameraController!.value.aspectRatio,
+                child: CameraPreview(ScanController.cameraController!)),
+          );
   }
 
   Widget buttonCapture() {
@@ -183,7 +194,7 @@ class CameraWidgetState extends State<CameraWidget> {
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                captureCamera(context),
+                showCamera == true ? captureCamera(context) : Container(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   // crossAxisAlignment: CrossAxisAlignment.end,

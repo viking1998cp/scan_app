@@ -4,7 +4,6 @@ import 'package:base_flutter_framework/utils/hive_database/hive_database.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
 
 import 'utils/shared.dart';
 
@@ -18,7 +17,6 @@ Future<void> main() async {
   await Shared.getInstance().getLikeData();
   await Shared.getInstance().getCollection();
   await Shared.getInstance().getLanguage();
-  await MobileAds.initialize();
   await DependencyInjection.init();
 
   print('test');

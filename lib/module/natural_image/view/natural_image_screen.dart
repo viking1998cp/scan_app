@@ -2,6 +2,7 @@ import 'package:base_flutter_framework/components/widget/load_more/load_more_gri
 import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/natural_image/controller/natural_image_controller.dart';
 import 'package:base_flutter_framework/module/natural_image/view/natural_image_detail.dart';
+import 'package:base_flutter_framework/module/scan_image/controller/scan_image_controller.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
 import 'package:base_flutter_framework/utils/constants/colors.dart';
@@ -15,6 +16,7 @@ class NaturalImageScreen extends GetView<NaturalImageController> {
 
   @override
   Widget build(BuildContext context) {
+    ScanController.cameraController?.dispose();
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,

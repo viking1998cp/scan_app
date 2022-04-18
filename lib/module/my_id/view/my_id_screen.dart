@@ -6,6 +6,7 @@ import 'package:base_flutter_framework/module/my_id/controller/my_id_controller.
 import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/my_id/view/item_cache.dart';
 import 'package:base_flutter_framework/module/natural_world/controller/natural_world_controller.dart';
+import 'package:base_flutter_framework/module/scan_image/controller/scan_image_controller.dart';
 import 'package:base_flutter_framework/module/scan_image/view/web_view.dart';
 import 'package:base_flutter_framework/resource/resource_icon.dart';
 import 'package:base_flutter_framework/routes/app_pages.dart';
@@ -25,6 +26,7 @@ class MyIdScreen extends GetView<MyIdController> {
 
   @override
   Widget build(BuildContext context) {
+    ScanController.cameraController?.dispose();
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

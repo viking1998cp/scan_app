@@ -4,7 +4,7 @@ import 'package:base_flutter_framework/components/widget/indicator.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
 import 'package:flutter/material.dart';
-import 'package:native_admob_flutter/native_admob_flutter.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdsCustom extends StatefulWidget {
   static BannerAdsCustom? instanceBigAds;
@@ -45,22 +45,40 @@ class BannerAdsCustom extends StatefulWidget {
 class _BannerAdsCustomState extends State<BannerAdsCustom> {
   Widget? child;
 
-  final _nativeAdController = NativeAdController();
-
+  // NativeAd? _nativeAd;
+  final ValueNotifier _nativeAdIsLoaded = ValueNotifier<bool>(false);
+  final ValueNotifier _nativeAdIsLoadedError = ValueNotifier<bool>(false);
+  final ValueNotifier _isShowAd = ValueNotifier<bool>(false);
+  NativeAd? _nativeAd;
   @override
   void initState() {
     super.initState();
-    _nativeAdController.onEvent.listen((event) {
-      print(event);
-    });
-    _nativeAdController.load().then((value) {
-      print(value);
-    });
+    _nativeAd = NativeAd(
+      adUnitId: Platform.isAndroid
+          ? 'ca-app-pub-3940256099942544/2247696110'
+          : 'ca-app-pub-3940256099942544/3986624511',
+      request: const AdRequest(),
+      listener: NativeAdListener(
+        onAdLoaded: (Ad ad) {
+          debugPrint('$NativeAd loaded.');
+
+          _nativeAdIsLoaded.value = true;
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          debugPrint('$NativeAd failedToLoad: $error');
+          _nativeAdIsLoadedError.value = true;
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => debugPrint('$NativeAd onAdOpened.'),
+        onAdClosed: (Ad ad) => debugPrint('$NativeAd onAdClosed.'),
+      ),
+      factoryId: 'adFactoryExample',
+    )..load();
   }
 
   @override
   void dispose() {
-    _nativeAdController.dispose();
+    _nativeAd?.dispose();
     super.dispose();
   }
 
@@ -77,37 +95,26 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
     if (child != null) return child!;
     return Shared.getInstance().buyFree == true
         ? SizedBox()
-        : NativeAd(
-            controller: _nativeAdController,
-            height: widget.type == 1 ? 60 : 250,
-            builder: (context, child) {
-              return Material(
-                elevation: 8,
-                child: child,
-              );
-            },
-            unitId: getNativeAds(),
-            buildLayout: widget.type == 2
-                ? mediumAdTemplateLayoutBuilder
-                : adBannerLayoutBuilder,
-            loading: Container(
-              width: DimensCommon.sizeWidth(context: context),
-              height: widget.type == 1 ? 60 : 250,
-              child: indicator(),
-            ),
-            error: Container(),
-            icon: AdImageView(padding: EdgeInsets.only(left: 6)),
-            headline: AdTextView(style: TextStyle(color: Colors.black)),
-            advertiser: AdTextView(style: TextStyle(color: Colors.black)),
-            loadTimeout: Duration(seconds: 60),
-            body:
-                AdTextView(style: TextStyle(color: Colors.black), maxLines: 1),
-            button: AdButtonView(
-              margin: EdgeInsets.only(left: 6, right: 6),
-              textStyle: TextStyle(color: Colors.green, fontSize: 14),
-              elevation: 18,
-              elevationColor: Colors.amber,
-            ),
-          );
+        : Container(
+            width: DimensCommon.sizeWidth(context: context),
+            margin: EdgeInsets.only(top: 8),
+            height: widget.type == 1 ? 60 : 330,
+            child: ValueListenableBuilder(
+                valueListenable: _nativeAdIsLoaded,
+                builder: (context, valueLoad, child) {
+                  return valueLoad == true
+                      ? ValueListenableBuilder(
+                          valueListenable: _nativeAdIsLoadedError,
+                          builder: (context, valueError, child) {
+                            return valueError != true
+                                ? SizedBox(
+                                    height: widget.type == 1 ? 60 : 330,
+                                    width: double.infinity,
+                                    child: AdWidget(ad: _nativeAd!),
+                                  )
+                                : SizedBox();
+                          })
+                      : indicator();
+                }));
   }
 }

@@ -40,6 +40,8 @@ import io.flutter.plugin.common.BasicMessageChannel;
 import io.flutter.plugin.common.StringCodec;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 import android.content.res.AssetManager;
+import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin;
+import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin.NativeAdFactory;
 
 public class MainActivity extends FlutterActivity {
 
@@ -49,9 +51,16 @@ public class MainActivity extends FlutterActivity {
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
-
+        final NativeAdFactory factory = new NativeAdFactoryExample(getLayoutInflater());
+        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "adFactoryExample", factory);
         demoBasicMessageChannel1();
     }
+
+
+     @Override
+  public void cleanUpFlutterEngine(FlutterEngine flutterEngine) {
+    GoogleMobileAdsPlugin.unregisterNativeAdFactory(flutterEngine, "adFactoryExample");
+  }
 
     public void demoBasicMessageChannel1() {
         Log.d("AAAAAAAA", "Test");

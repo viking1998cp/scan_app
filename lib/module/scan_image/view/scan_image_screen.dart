@@ -16,7 +16,6 @@ class ScanScreen extends GetView<ScanController> {
     return Container(
       child: Scaffold(
           body: Container(
-              // color: ,
               child: Column(
         children: [
           Obx(() => CameraWidget(

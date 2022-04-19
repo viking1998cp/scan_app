@@ -248,7 +248,9 @@ class CameraWidgetState extends State<CameraWidget> {
                   BannerAdsCustom.getInstanceBottomAds(context),
                 ],
               )
-            : SizedBox()
+            : Container(
+                color: Colors.black,
+              )
       ],
     );
   }

@@ -60,7 +60,8 @@ class _LoadMoreGridViewState extends State<LoadMoreGridView> {
                     return BannerAdsCustom.getInstanceSmallAds(context);
                   }
 
-                  return InkWell(
+                  return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
                     onTap: () {
                       widget.onclickItem(index - 1);
                     },

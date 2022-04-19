@@ -1,3 +1,4 @@
+import 'package:base_flutter_framework/components/widget/image.dart';
 import 'package:base_flutter_framework/components/widget/load_more/load_more_grid_view.dart';
 import 'package:base_flutter_framework/module/my_id/view/banner_ads.dart';
 import 'package:base_flutter_framework/module/natural_image/controller/natural_image_controller.dart';
@@ -74,10 +75,11 @@ class NaturalImageScreen extends GetView<NaturalImageController> {
                       margin: EdgeInsets.only(top: 6, left: 3, right: 3),
                       child: Card(
                           elevation: 10,
-                          child: Image.network(
-                            "http://i.7fon.org/300/$id.jpg",
-                            fit: BoxFit.cover,
-                          )),
+                          child: imageFromNetWork(
+                              url: "http://i.7fon.org/300/$id.jpg",
+                              width: null,
+                              height: null,
+                              fill: true)),
                     );
                   },
                   onclickItem: (index) {

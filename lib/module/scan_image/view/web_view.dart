@@ -20,8 +20,7 @@ class _WebviewResultState extends State<WebviewResult> {
   bool isLoading = true;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: false,
@@ -32,7 +31,6 @@ class _WebviewResultState extends State<WebviewResult> {
         ),
       ),
       body: Container(
-        color: Colors.red,
         child: Stack(
           children: <Widget>[
             Container(
@@ -67,6 +65,6 @@ class _WebviewResultState extends State<WebviewResult> {
           ],
         ),
       ),
-    ));
+    );
   }
 }

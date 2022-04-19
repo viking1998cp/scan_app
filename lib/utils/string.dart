@@ -42,7 +42,7 @@ class StringCommon {
 
     List<String> nameFormatIssue = [];
     name.forEach((element) {
-      if (element.length < 4) {
+      if (element.length > 4) {
         nameFormatIssue.add(element);
       }
     });

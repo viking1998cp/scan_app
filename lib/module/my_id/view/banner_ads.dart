@@ -93,12 +93,13 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
   @override
   Widget build(BuildContext context) {
     if (child != null) return child!;
+
     return Shared.getInstance().buyFree == true
         ? SizedBox()
         : Container(
             width: DimensCommon.sizeWidth(context: context),
             margin: EdgeInsets.only(top: 8),
-            height: widget.type == 1 ? 60 : 330,
+            height: widget.type == 1 ? 70 : 330,
             child: ValueListenableBuilder(
                 valueListenable: _nativeAdIsLoaded,
                 builder: (context, valueLoad, child) {
@@ -108,7 +109,7 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
                           builder: (context, valueError, child) {
                             return valueError != true
                                 ? SizedBox(
-                                    height: widget.type == 1 ? 60 : 330,
+                                    height: widget.type == 1 ? 70 : 330,
                                     width: double.infinity,
                                     child: AdWidget(ad: _nativeAd!),
                                   )

@@ -48,7 +48,7 @@ class _DialogChangeLayoutState extends State<DialogChangeLayout> {
     return Container(
       alignment: Alignment.center,
       child: Container(
-        height: 180,
+        height: 188,
         width: 300,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         alignment: Alignment.center,

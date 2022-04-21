@@ -20,6 +20,11 @@ class ScanScreen extends GetView<ScanController> {
         children: [
           Obx(() => CameraWidget(
                 showButtonCap: Get.arguments != null ? true : false,
+                fromMyId: Get.arguments != null
+                    ? Get.arguments['from'] != null
+                        ? true
+                        : false
+                    : false,
                 selectImageFromGallery: (file) async {
                   File? croppedFile = await ImageCropper.cropImage(
                       sourcePath: file.path,

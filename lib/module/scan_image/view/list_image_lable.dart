@@ -103,7 +103,7 @@ class ListDetectScreen extends GetView<ScanController> {
                         hintText: datas[indexSelect].title!,
                         okClick: (text) async {
                           ResultDetect resultDetect = datas[indexSelect].copy();
-                          resultDetect.title = text[0];
+                          resultDetect.displaytitle = text;
                           Shared.getInstance()
                               .collectionCache!
                               .add(resultDetect);

@@ -7,6 +7,7 @@ import 'package:base_flutter_framework/routes/app_pages.dart';
 import 'package:base_flutter_framework/translations/app_translations.dart';
 import 'package:base_flutter_framework/translations/application.dart';
 import 'package:base_flutter_framework/translations/transaction_key.dart';
+import 'package:base_flutter_framework/utils/constants/colors.dart';
 import 'package:base_flutter_framework/utils/dimens.dart';
 import 'package:base_flutter_framework/utils/navigator.dart';
 import 'package:base_flutter_framework/utils/shared.dart';
@@ -61,7 +62,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     child: Text(
                         TransactionKey.loadLanguage(
                             context, TransactionKey.selectLanguage),
-                        style: TextAppStyle().textBlackBoldBigStyle())),
+                        style: TextAppStyle().textTitleStyle())),
               ),
               SizedBox(
                 height: 12,
@@ -107,7 +108,9 @@ class _SelectLanguageState extends State<SelectLanguage> {
                         child: Text(
                           TransactionKey.loadLanguage(
                               context, TransactionKey.selectCancel),
-                          style: TextAppStyle().styleTextScore(context),
+                          style: TextAppStyle()
+                              .styleTextScore(context)
+                              .copyWith(color: hexToColor("#00DDC2")),
                         )),
                     SizedBox(
                       width: 16,
@@ -136,7 +139,9 @@ class _SelectLanguageState extends State<SelectLanguage> {
                         child: Text(
                           TransactionKey.loadLanguage(
                               context, TransactionKey.selectOk),
-                          style: TextAppStyle().styleTextScore(context),
+                          style: TextAppStyle()
+                              .styleTextScore(context)
+                              .copyWith(color: hexToColor("#00DDC2")),
                         ))
                   ],
                 ),

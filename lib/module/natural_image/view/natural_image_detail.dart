@@ -21,10 +21,11 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Container(
             alignment: Alignment.center,
-            color: Colors.transparent,
+            color: Colors.black,
             child: GestureDetector(
               onTap: () {
                 controller.bottomMenu.value = true;
@@ -243,12 +244,11 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
 
   Widget imageDownloadDialog() {
     return Container(
-      height: 120.0,
-      width: 200.0,
       child: Card(
-        color: Colors.black,
+        color: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             CircularProgressIndicator(),
             SizedBox(height: 20.0),
@@ -263,30 +263,39 @@ class ImageDetailScreen extends GetView<NaturalImageController> {
   }
 
   void downloadDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return Container(
-          height: 120.0,
-          width: 200.0,
-          child: Card(
-            color: Colors.transparent,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircularProgressIndicator(),
-                SizedBox(height: 20.0),
-                Text(
-                  "Downloading ...",
-                  style: TextStyle(color: Colors.white),
-                )
-              ],
-            ),
+    NavigatorCommon.showDialogCommon(
+        context: context,
+        child: Material(
+          color: Colors.transparent,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: Container(
+                  height: 120.0,
+                  width: 200.0,
+                  color: Colors.black,
+                  child: Card(
+                    color: Colors.transparent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CircularProgressIndicator(),
+                        SizedBox(height: 20.0),
+                        Text(
+                          "Downloading ...",
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        );
-      },
-    );
+        ));
   }
 
   void _showDialogSetWallpaper(BuildContext context) {

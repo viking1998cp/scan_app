@@ -24,12 +24,15 @@ class CameraWidget extends StatefulWidget {
   Function(File file) selectImageFromGallery;
   Function(int mode) changeMode;
   int indexMode;
+
+  bool? fromMyId;
   CameraWidget(
       {Key? key,
       required this.selectImageFromGallery,
       required this.changeMode,
       required this.indexMode,
-      this.showButtonCap})
+      this.showButtonCap,
+      this.fromMyId})
       : super(key: key);
 
   @override
@@ -122,9 +125,11 @@ class CameraWidgetState extends State<CameraWidget> {
           children: [
             InkWell(
                 onTap: () async {
+                  ScanController.cameraController?.dispose();
                   setState(() {
                     cameraIndex == 0 ? cameraIndex = 1 : cameraIndex = 0;
                   });
+
                   setUpCamera();
 
                   // await controller.onInit();
@@ -190,7 +195,13 @@ class CameraWidgetState extends State<CameraWidget> {
             height: (Shared.getInstance().layout == 1 &&
                     widget.showButtonCap != true)
                 ? DimensCommon.sizeHeight(context: context) - 112
-                : DimensCommon.sizeHeight(context: context) - 110,
+                : widget.fromMyId == true
+                    ? Shared.getInstance().layout == 1
+                        ? DimensCommon.sizeHeight(context: context) - 56
+                        : DimensCommon.sizeHeight(context: context) - 124
+                    : Shared.getInstance().layout == 2
+                        ? DimensCommon.sizeHeight(context: context) - 130
+                        : DimensCommon.sizeHeight(context: context) - 110,
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [

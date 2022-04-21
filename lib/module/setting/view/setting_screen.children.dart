@@ -141,7 +141,8 @@ extension SettingScreenChildren on SettingScreen {
               icon: ResourceIcon.iconShare,
               onclick: () {
                 Share.share(
-                    TransactionKey.loadLanguage(context, TransactionKey.contentRecommendedApp) +
+                    TransactionKey.loadLanguage(
+                            context, TransactionKey.contentRecommendedApp) +
                         (Platform.isAndroid
                             ? "https://play.google.com/store/apps/details?id=${controller.packageName.value}"
                             : "https://apps.apple.com/app/id1614593199"),
@@ -299,9 +300,11 @@ extension SettingScreenChildren on SettingScreen {
                                           Get.back();
                                           controller.ratingIndex.value = 0.0;
                                           if (Platform.isAndroid) {
-                                            launch("https://play.google.com/store/apps/details?id=${controller.packageName.value}");
+                                            launch(
+                                                "https://play.google.com/store/apps/details?id=${controller.packageName.value}");
                                           } else {
-                                            launch("https://apps.apple.com/app/id1614593199");
+                                            launch(
+                                                "https://apps.apple.com/app/id1614593199");
                                           }
                                         },
                                         child: Container(
@@ -338,7 +341,7 @@ extension SettingScreenChildren on SettingScreen {
           alignment: Alignment.center,
           child: Container(
             width: 300,
-            height: 105,
+            height: 107,
             padding: EdgeInsets.symmetric(horizontal: 8),
             color: Colors.white,
             child: Column(
@@ -405,8 +408,9 @@ extension SettingScreenChildren on SettingScreen {
                           ),
                         ),
                         InkWell(
-                          onTap: () {
-                            launch('mailto:oreecaa@gmail.com');
+                          onTap: () async {
+                            await launch('mailto:oreecaa@gmail.com');
+                            Navigator.pop(context);
                           },
                           child: Text(
                             TransactionKey.loadLanguage(

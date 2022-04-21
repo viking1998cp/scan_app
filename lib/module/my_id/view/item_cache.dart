@@ -71,7 +71,7 @@ class _ItemCacheState extends State<ItemCache> {
                   color: Color(0x80FFFFFF),
                   child: Center(
                       child: Text(
-                    '${resultDetect.title}',
+                    '${StringCommon.formatHtml(resultDetect.displaytitle!)}',
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

@@ -92,7 +92,7 @@ class ScanController extends BaseController {
       if (indexMode.value == 4) {
         dataDetect.clear();
         dataDetect.value = [];
-        await stringPlatform!.send(imageFile!.path);
+        await stringPlatform!.send(croppedFile.path);
       } else {
         datas(croppedFile);
       }

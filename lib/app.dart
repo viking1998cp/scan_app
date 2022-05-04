@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'base/app_binding.dart';
 import 'routes/app_pages.dart';
 import 'theme/theme_data.dart';
@@ -15,8 +16,13 @@ class App extends StatelessWidget {
   AppTranslationsDelegate? _newLocaleDelegate =
       AppTranslationsDelegate(newLocale: new Locale('en', 'English'));
 
+  List<String> testDeviceIds = ['C5D0713F5736F038834AFDA184B042A9'];
   @override
   Widget build(BuildContext context) {
+    RequestConfiguration configuration =
+        RequestConfiguration(testDeviceIds: testDeviceIds);
+    MobileAds.instance.initialize();
+    MobileAds.instance.updateRequestConfiguration(configuration);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       enableLog: true,

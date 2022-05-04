@@ -43,7 +43,7 @@ class CameraWidgetState extends State<CameraWidget> {
   int cameraIndex = 0;
   static bool flashOn = false;
   bool showCamera = false;
-
+  bool loadCamera = false;
   void initState() {
     super.initState();
     setUpCamera();
@@ -72,6 +72,7 @@ class CameraWidgetState extends State<CameraWidget> {
       ScanController.cameraController!
           .setFlashMode(flashOn ? FlashMode.torch : FlashMode.off);
       setState(() {});
+      loadCamera = false;
     });
   }
 
@@ -125,12 +126,15 @@ class CameraWidgetState extends State<CameraWidget> {
           children: [
             InkWell(
                 onTap: () async {
-                  ScanController.cameraController?.dispose();
-                  setState(() {
-                    cameraIndex == 0 ? cameraIndex = 1 : cameraIndex = 0;
-                  });
+                  if (loadCamera == false) {
+                    loadCamera = true;
+                    ScanController.cameraController?.dispose();
+                    setState(() {
+                      cameraIndex == 0 ? cameraIndex = 1 : cameraIndex = 0;
+                    });
 
-                  setUpCamera();
+                    setUpCamera();
+                  }
 
                   // await controller.onInit();
                 },

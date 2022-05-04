@@ -56,7 +56,7 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
     _nativeAd = NativeAd(
       adUnitId: Platform.isAndroid
           ? 'ca-app-pub-2678670127764045/5498886451'
-          : 'ca-app-pub-3940256099942544/3986624511',
+          : 'ca-app-pub-2543065673224553/6728686571',
       request: const AdRequest(),
       listener: NativeAdListener(
         onAdLoaded: (Ad ad) {

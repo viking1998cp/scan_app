@@ -84,7 +84,7 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
 
   String getNativeAds() {
     if (Platform.isIOS) {
-      return "ca-app-pub-4971959505787142/1859506847";
+      return "ca-app-pub-2543065673224553/6728686571";
     } else {
       return "ca-app-pub-2678670127764045/5498886451";
     }

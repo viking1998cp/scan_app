@@ -189,7 +189,7 @@ class NaturalImageScreen extends GetView<NaturalImageController> {
               ),
             ),
             actions: [
-              new FlatButton(
+              new TextButton(
                 child: new Text('Ok'),
                 onPressed: () {
                   controller.reloadData(controller.isActive0!.value == true

@@ -73,7 +73,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   child: language.isEmpty
                       ? indicator()
                       : RadioGroup<String>.builder(
-                          spacebetween: 40,
+                    
                           groupValue: select,
                           activeColor: Theme.of(context).primaryColor,
                           onChanged: (value) async {

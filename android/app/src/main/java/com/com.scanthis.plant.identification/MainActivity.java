@@ -1,6 +1,7 @@
 package com.scanthis.plant.identification;
-
+import adroid.content.res.AssetManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -155,16 +156,30 @@ public class MainActivity extends FlutterActivity {
 
         if (classifier == null)
             try {
-                classifier =
-                        TensorFlowImageClassifier.create(
-                                getAssets(),
-                                MODEL_FILE,
-                                getResources().getStringArray(R.array.breeds_array),
-                                INPUT_SIZE,
-                                IMAGE_MEAN,
-                                IMAGE_STD,
-                                INPUT_NAME,
-                                OUTPUT_NAME);
+                Context contextDogDectect = null;
+                try {
+                    contextDogDectect = createPackageContext("com.scanthis.plant.identification", 0);
+                    classifier =
+                            TensorFlowImageClassifier.create(
+                                    contextDogDectect.getAssets(),
+                                    MODEL_FILE,
+                                    getResources().getStringArray(R.array.breeds_array),
+                                    INPUT_SIZE,
+                                    IMAGE_MEAN,
+                                    IMAGE_STD,
+                                    INPUT_NAME,
+                                    OUTPUT_NAME);
+                }
+
+                catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }catch (OutOfMemoryError e) {
+                runOnUiThread(() -> {
+                    ToastUtils.showShort("failed");
+                });
+            }
+
+
             } catch (OutOfMemoryError e) {
                 runOnUiThread(() -> {
                     ToastUtils.showShort("failed");

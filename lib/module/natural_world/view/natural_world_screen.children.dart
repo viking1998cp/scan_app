@@ -155,7 +155,7 @@ extension NaturalWorldScreenChildren on NaturalWorldScreen {
             ),
           ),
           actions: [
-            new FlatButton(
+            new TextButton(
               child: new Text('Ok'),
               onPressed: () {
                 Navigator.of(context).pop();

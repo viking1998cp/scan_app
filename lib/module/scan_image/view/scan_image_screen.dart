@@ -26,7 +26,7 @@ class ScanScreen extends GetView<ScanController> {
                         : false
                     : false,
                 selectImageFromGallery: (file) async {
-                  File? croppedFile = await ImageCropper.cropImage(
+                  CroppedFile? croppedFile = await ImageCropper.platform.cropImage(
                       sourcePath: file.path,
                       aspectRatioPresets: [
                         CropAspectRatioPreset.square,
@@ -35,16 +35,16 @@ class ScanScreen extends GetView<ScanController> {
                         CropAspectRatioPreset.ratio4x3,
                         CropAspectRatioPreset.ratio16x9
                       ],
-                      androidUiSettings: AndroidUiSettings(
+                      uiSettings: [ AndroidUiSettings(
                           toolbarTitle: TransactionKey.loadLanguage(
                               context, TransactionKey.cropper),
                           toolbarColor: Colors.deepOrange,
                           toolbarWidgetColor: Colors.white,
                           initAspectRatio: CropAspectRatioPreset.original,
-                          lockAspectRatio: false),
-                      iosUiSettings: IOSUiSettings(
+                          lockAspectRatio: false),  IOSUiSettings(
                         minimumAspectRatio: 1.0,
-                      ));
+                      )],
+                   );
                   if (croppedFile != null) {
                     if (controller.indexMode.value == 4) {
                       controller.dataDetect.clear();
@@ -52,7 +52,7 @@ class ScanScreen extends GetView<ScanController> {
 
                       await controller.stringPlatform!.send(croppedFile.path);
                     } else {
-                      controller.datas(croppedFile);
+                      controller.datas(File(croppedFile.path));
                     }
 
                     Get.to(ListDetectScreen(), arguments: [croppedFile]);

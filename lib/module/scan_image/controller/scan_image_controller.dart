@@ -70,34 +70,37 @@ class ScanController extends BaseController {
       ScanController.cameraController!.setFlashMode(FlashMode.off);
     });
 
-    File? croppedFile = await ImageCropper.cropImage(
-        sourcePath: File(imageFile!.path).path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        androidUiSettings: AndroidUiSettings(
+    CroppedFile? croppedFile = await ImageCropper.platform.cropImage(
+      sourcePath: File(imageFile!.path).path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
             toolbarTitle: 'Cropper',
             toolbarColor: Theme.of(Get.context!).primaryColor,
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
-        iosUiSettings: IOSUiSettings(
+        IOSUiSettings(
           minimumAspectRatio: 1.0,
-        ));
+        )
+      ],
+    );
     if (croppedFile != null) {
       if (indexMode.value == 4) {
         dataDetect.clear();
         dataDetect.value = [];
         await stringPlatform!.send(croppedFile.path);
       } else {
-        datas(croppedFile);
+        datas(File(croppedFile.path));
       }
 
-      await Get.to(ListDetectScreen(), arguments: [croppedFile]);
+      await Get.to(ListDetectScreen(), arguments: [File(croppedFile.path)]);
       cameraController!.resumePreview().then((value) {
         Timer(Duration(milliseconds: 500), () {
           ScanController.cameraController!.setFlashMode(
@@ -145,7 +148,10 @@ class ScanController extends BaseController {
       data.putIfAbsent('text', () => nameDog);
       data.putIfAbsent('index', () => 0);
 
-      imageDog = ImageLabel(data);
+      imageDog = ImageLabel(
+          confidence: data['confidence'],
+          label: data['text'],
+          index: data['index']);
       await Future.delayed(Duration(milliseconds: 1000), () async {
         detectDog(imageDog!);
       });

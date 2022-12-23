@@ -30,35 +30,35 @@ class SplashController extends GetxController {
 
     _getId();
 
-    if (Platform.isIOS) {
-      bool modelMush = await GoogleMlKit.vision
-          .remoteModelManager()
-          .isModelDownloaded('mush_data');
+    // if (Platform.isIOS) {
+    //   bool modelMush = await GoogleMlKit.vision
+    //       .remoteModelManager()
+    //       .isModelDownloaded('mush_data');
 
-      if (!modelMush) {
-        SKToast.showToastBottom(
-            messager: TransactionKey.loadLanguage(
-                Get.context!, TransactionKey.msgTurnOnNetword),
-            context: Get.context);
-        await GoogleMlKit.vision
-            .remoteModelManager()
-            .downloadModel("mush_data", isWifiRequired: false)
-            .then((value) => print(value));
-      }
+    //   if (!modelMush) {
+    //     SKToast.showToastBottom(
+    //         messager: TransactionKey.loadLanguage(
+    //             Get.context!, TransactionKey.msgTurnOnNetword),
+    //         context: Get.context);
+    //     await GoogleMlKit.vision
+    //         .remoteModelManager()
+    //         .downloadModel("mush_data", isWifiRequired: false)
+    //         .then((value) => print(value));
+    //   }
 
-      bool birlModel = await GoogleMlKit.vision
-          .remoteModelManager()
-          .isModelDownloaded('bird');
-      if (!birlModel) {
-        SKToast.showToastBottom(
-            messager: TransactionKey.loadLanguage(
-                Get.context!, TransactionKey.msgTurnOnNetword),
-            context: Get.context);
-        await GoogleMlKit.vision
-            .remoteModelManager()
-            .downloadModel("bird", isWifiRequired: false);
-      }
-    }
+    //   bool birlModel = await GoogleMlKit.vision
+    //       .remoteModelManager()
+    //       .isModelDownloaded('bird');
+    //   if (!birlModel) {
+    //     SKToast.showToastBottom(
+    //         messager: TransactionKey.loadLanguage(
+    //             Get.context!, TransactionKey.msgTurnOnNetword),
+    //         context: Get.context);
+    //     await GoogleMlKit.vision
+    //         .remoteModelManager()
+    //         .downloadModel("bird", isWifiRequired: false);
+    //   }
+    // }
     await loadInitSplashScreen();
   }
 
@@ -161,9 +161,9 @@ class SplashController extends GetxController {
     } else {
       var androidDeviceInfo = await deviceInfo.androidInfo;
       await Shared.getInstance()
-          .saveDeviceId(deviceId: androidDeviceInfo.androidId!);
+          .saveDeviceId(deviceId: androidDeviceInfo.id);
 
-      return androidDeviceInfo.androidId; // unique ID on Android
+      return androidDeviceInfo.id; // unique ID on Android
     }
   }
 }
@@ -173,7 +173,7 @@ class SubcsriptionStatus {
       {required String sku,
       required Duration duration,
       required Duration grace}) async {
-    await FlutterInappPurchase.instance.initConnection;
+    await FlutterInappPurchase.instance.isReady();
 
     if (Platform.isIOS) {
       var history = await FlutterInappPurchase.instance.getPurchaseHistory();

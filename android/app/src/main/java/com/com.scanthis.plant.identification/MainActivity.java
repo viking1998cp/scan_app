@@ -1,5 +1,4 @@
 package com.scanthis.plant.identification;
-import adroid.content.res.AssetManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;

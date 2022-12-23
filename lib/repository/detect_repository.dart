@@ -75,7 +75,7 @@ class DetectRepository {
         data.putIfAbsent('text', () => element.species!.commonNames!.first);
         data.putIfAbsent('index', () => 0);
 
-        results.add(ImageLabel(data));
+        results.add(ImageLabel(confidence: data['confidence'], label:data['text'], index:data['index']  ));
       }
     });
     return results;

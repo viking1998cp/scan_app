@@ -84,9 +84,9 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
 
   String getNativeAds() {
     if (Platform.isIOS) {
-      return "ca-app-pub-2543065673224553/6728686571";
+      return "ca-app-pub-3940256099942544/2247696110";
     } else {
-      return "ca-app-pub-2678670127764045/5498886451";
+      return "ca-app-pub-3940256099942544/2247696110";
     }
   }
 
@@ -115,7 +115,7 @@ class _BannerAdsCustomState extends State<BannerAdsCustom> {
                                   )
                                 : SizedBox();
                           })
-                      : indicator();
+                      : SizedBox();
                 }));
   }
 }
